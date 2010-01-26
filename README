@@ -1,0 +1,10 @@
+README
+======
+:Author:    Bahtiar `kalkin` Gadimov
+:Email:     mail@kalkin.de
+:Date:      2010-01-26
+
+About
+-----
+This is a library for Solarphp (http://solarphp.com/) framework. It's designed
+for communicatino with Couchdb (http://couchdb.apache.org/)
