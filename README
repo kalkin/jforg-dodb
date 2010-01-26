@@ -8,3 +8,10 @@ About
 -----
 This is a library for Solarphp (http://solarphp.com/) framework. It's designed
 for communicatino with Couchdb (http://couchdb.apache.org/)
+
+Authors
+-------
+Daniel Gultsch
+Bahtiar Gadimov
+
+// vim: ft=asciidoc tw=74
