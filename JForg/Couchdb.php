@@ -38,7 +38,7 @@ class JForg_Couchdb extends Solar_Base
      */
     protected function _postConfig()
     {
-        if ( $this->_config['dbname'] != null)
+        if ( $this->_config['dbname'] == null)
             throw $this->_exception('NO_DBNAME_DEFINED');
         else 
             $this->_dbName = $this->_config['dbname'];
@@ -48,7 +48,7 @@ class JForg_Couchdb extends Solar_Base
     /**
      * Finds a document by id.
      * 
-     * @param string|array $data The document id
+     * @param scalar $data The document id
      * 
      * @return array result
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
@@ -59,58 +59,55 @@ class JForg_Couchdb extends Solar_Base
         $request = null; 
         $uri = $this->getUri();
 
-        if ( is_array($data) )
-        {
-            foreach ($data as $id)
-            {
-                $tmp .= '"'.$id.'",';
-            }
-            $tmp = substr($tmp, 0, -1);
-            $content = '{"keys":['.$tmp.']}';
+        // Strange bugs on couchdb site search for 3 keys get 5 docs...
+        //if ( is_array($data) )
+        //{
+            //$tmp = '';
+            //foreach ($data as $id)
+            //{
+                //$tmp .= '"'.$id.'",';
+            //}
+            //$tmp = substr($tmp, 0, -1);
+            //$content = '{"keys":['.$tmp.']}';
 
-            $request = $this->getHttpRequest();
-            $request->content = $content;
+            //$request = $this->getHttpRequest();
+            //$request->content = $content;
+            //$request->method = Solar_Http_Request::METHOD_POST;
 
-            $uri->path[] = self::ALL_DOCS;
-            $uri->query['include_docs'] = 'true';
+            //$uri->path[] = self::ALL_DOCS;
+            //$uri->query['include_docs'] = 'true';
 
-        } elseif ( is_scalar($data) )
+        //} else
+            
+        if ( is_scalar($data) )
         {
             $uri->path[] = $data;
         }
         else 
             throw $this->_exception('BAD_PARAMS');
 
-        return  $this->_query($uri, $request);
+        return  $this->query($uri, $request);
     }
 
     /**
      * Deletes a document from the database
      * 
-     * @param string|array $data The document id
+     * @param array $data The document id
      * 
      * @return bool
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
-    public function delete($data)
+    public function delete($id, $rev)
     {
+
         $uri = $this->getUri();
 
         $request = $this->getHttpRequest();
         $request->setMethod(Solar_Http_Request::METHOD_DELETE);
 
-
-        if ( is_array($data))
-        {
-            $uri->path[] = $data['_id'];
-            if ( isset($data['_rev']) )
-                $uri->query = array('rev' => $data['_rev']);
-        } elseif ( is_scalar($data) )
-        {
-            $uri->path[] = $data;
-        }
-        else 
-            throw $this->_exception('BAD_PARAMS');
+        $uri->path[] = $id;
+        $uri->query = array('rev' => $rev);
+        print($uri->get(true)."\n\n");
         return $this->query($uri, $request);
     }
 
@@ -131,9 +128,13 @@ class JForg_Couchdb extends Solar_Base
         {
             $request->setMethod(Solar_Http_Request::METHOD_PUT);
             $uri->path[] = $data['_id'];
+            unset($data['_id']);
         } else {
             $request->setMethod(Solar_Http_Request::METHOD_POST);
         }
+
+        $request->setContent(json_encode($data));
+        $request->setContentType('application/json');
 
         return $this->query($uri, $request);
 
@@ -152,7 +153,7 @@ class JForg_Couchdb extends Solar_Base
     public function getUuid($count = 1) 
     {
         $uri = $this->getUri();
-        $uri->path[] = self::UUIDS;
+        $uri->path = array(self::UUIDS);
         if ( $count > 1 )
         {
             $uri->query['count'] = $count; 
@@ -170,13 +171,19 @@ class JForg_Couchdb extends Solar_Base
      * @return array the result
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
-    public function query(Solar_Uri $uri, Solar_Http_Request $request = null) 
+    public function query(Solar_Uri $uri, Solar_Http_Request_Adapter $request = null) 
     {
         if ( $request == null )
             $request = $this->getHttpRequest();
-            
+
+        print($uri->get(true)."\n\n");
+        print("\n");
+        Solar::dump($request);
+        print("\n");
+
         $request->setUri($uri->get(true));
     	$json = $request->fetch()->content;
+
     	return json_decode($json,true);
     }
 
@@ -213,10 +220,12 @@ class JForg_Couchdb extends Solar_Base
      * @return Solar_Http_Request
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
-    public function getHttpRequest($aconfig)
+    public function getHttpRequest()
     {
-        if ( $this->_config['http_requst'] != null )
-            $httpClient = Solar::factory('Solar_Http_Request', $this->_config['http_requst']);
+        if ( isset($this->_config['http_requst']) && $this->_config['http_requst'] != null )
+        {
+            $httpClient = Solar::factory('Solar_Http_Request', array('adapter' => 'Solar_Http_Request_Adapter_Curl'));
+        }
         else
             $httpClient = Solar::factory('Solar_Http_Request');
 
@@ -224,5 +233,4 @@ class JForg_Couchdb extends Solar_Base
 
         return $httpClient;
     }
-
 }
