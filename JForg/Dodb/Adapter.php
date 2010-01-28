@@ -44,4 +44,8 @@ abstract class JForg_Dodb_Adapter extends Solar_Base
     public abstract function delete(JForg_Dodb_Document $doc);
 
     public abstract function deleteCollection(JForg_Dodb_Document_Collection $collection);
+
+    public abstract function documentToArray(JForg_Dodb_Document $doc);
+
+    public abstract function documentToString(JForg_Dodb_Document $doc);
 }
