@@ -76,7 +76,7 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
 	protected $_data = array();
 
 	/**
-	 * Contains a JForg_Dodb_Document_Adapter instance
+	 * Contains a JForg_Dodb_Adapter instance
 	 * 
 	 * @var double  Defaults to null. 
 	 * @since 2010-01-26
