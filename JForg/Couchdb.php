@@ -2,7 +2,7 @@
 /**
  * Adapter class for Couchdb
  * 
- * @package JForg_Dodb 
+ * @package JForg_Couchdb
  * @author    Bahtiar Gadimov <bahtiar@gadimov.de>
  * @copyright (c) 2010 Bahtiar Gadimov
  * @since     2010-01-26
@@ -109,7 +109,8 @@ class JForg_Couchdb extends Solar_Base
     /**
      * Deletes a document from the database
      * 
-     * @param array $data The document id
+     * @param scalar $id The document id
+     * @param scalar $rev The document revision
      * 
      * @return bool
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
@@ -129,11 +130,11 @@ class JForg_Couchdb extends Solar_Base
     }
 
     /**
-     * TODO: short description.
+     * Saves a document in to couchdb
      * 
-     * @param double $data 
+     * @param array $data The document data to save
      * 
-     * @return TODO
+     * @return array Couchdb response
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
     public function save(array $data)
@@ -180,10 +181,10 @@ class JForg_Couchdb extends Solar_Base
     }
 
     /**
-     * Queries the couchdb database
+     * Queries the couchdb database directly
      * 
-     * @param Solar_Uri          $uri    
-     * @param Solar_Http_Request $client 
+     * @param Solar_Uri          $uri    The uri object to use
+     * @param Solar_Http_Request $request The request object to use
      * 
      * @return array the result
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
@@ -205,9 +206,12 @@ class JForg_Couchdb extends Solar_Base
     }
 
     /**
-     * TODO: short description.
+     * Returns a preoared Solar_Uri object for interaction with the database
+     * directly via JForg_Couchdb::query()
      * 
-     * @return TODO
+     * @see JForg_Couchdb::query()
+     * @see JForg_Couchdb::getHttpRequest()
+     * @return Solar_Uri
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
     public function getUri()
@@ -232,8 +236,11 @@ class JForg_Couchdb extends Solar_Base
     }
 
     /**
-     * Returns the httpRequest object
+     * Returns a prepared Solar_Http_Request object for interaction with the
+     * database directly via JForg_Couchdb::query()
      * 
+     * @see JForg_Couchdb::query()
+     * @see JForg_Couchdb::getUri();
      * @return Solar_Http_Request
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
