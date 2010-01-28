@@ -17,8 +17,9 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
 	 * @since 2010-01-26
 	 */
 	protected $_JForg_Dodb_Document = array(
-            'document_adapter' => 'document_adapter',
-            'basedocument' => 'JForg_Dodb_Document',
+            'document_adapter'  => 'document_adapter',
+            'basedocument'      => 'JForg_Dodb_Document',
+            'type_safe'         => false
             );
 
 	/**
