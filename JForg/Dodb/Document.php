@@ -13,13 +13,14 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
 	/**
      * Default configuration values.
 	 * 
+     * @config string document_adapter Which adapter should be used for
+     *   retrieve the data
+     *
      * @var array
 	 * @since 2010-01-26
 	 */
 	protected $_JForg_Dodb_Document = array(
             'document_adapter'  => 'document_adapter',
-            'basedocument'      => 'JForg_Dodb_Document',
-            'type_safe'         => false
             );
 
 	/**
@@ -124,7 +125,7 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
     /**
      * Populates the document with data
      * 
-     * @param array
+     * @param arrau $values Populate the document with given data
      * 
      * @return JForg_Dodb_Document
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
@@ -157,7 +158,7 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
      * @return JForg_Dodb_Document
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
-    public function reload($force = false)
+    public function reload()
     {
         print_r(apd_callstack());
         die();
@@ -178,7 +179,7 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
     /**
      * Checks if a parameter is set
      * 
-     * @param string $name 
+     * @param string $name Tests if the document parmater $name is set
      * 
      * @return bool
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
@@ -191,7 +192,7 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
     /**
      * Checks if a parameter is unset
      * 
-     * @param string $name 
+     * @param string $name  Unsets the $name paramter
      * 
      * @return void
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
@@ -206,10 +207,10 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
      * Magic call implements "get...()" and "set...()" for
      * params listed in the method name.
      * 
-     * @param mixed $name      
-     * @param array $arguments 
+     * @param mixed $name   The name of the called function 
+     * @param array $arguments The function arguments
      * 
-     * @return JForg_Dodb_Document|string
+     * @return JForg_Dodb_Document|mixed
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
     public function __call($name, $arguments)
@@ -222,7 +223,7 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
 	/**
 	 * Get a parameter value
 	 * 
-	 * @param string $name
+	 * @param string $name The parameter name
 	 * 
 	 * @return mixed
 	 * @author Bahtiar Gadimov <bahtiar@gadimov.de>
@@ -236,8 +237,8 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
 	/**
 	 * Set a parameter value
 	 * 
-	 * @param string $name
-	 * @param mixed $value
+	 * @param string $name  The paramter to set
+	 * @param mixed $value  The value to which the parameter is set
 	 * 
 	 * @return JForg_Dodb_Document
 	 * @author Bahtiar Gadimov <bahtiar@gadimov.de>
