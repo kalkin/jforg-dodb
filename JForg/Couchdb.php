@@ -10,13 +10,30 @@
 class JForg_Couchdb extends Solar_Base
 {
 
+    /**
+     * 
+     * Default configuration values.
+     * 
+     * @config string host A host to use.
+     * 
+     * @config string port A port to use.
+     * 
+     * @config string dbname A database name to use.
+     * 
+     * @config string encrypted If the database connection should be encrypted
+     * 
+     * @config string http_requst A config for the Solar_Http_Request_Adapter
+     * 
+     * @var array
+     * 
+     */
 	protected $_JForg_Dodb_Adapter_CouchDb = array(
 	   'host' => 'localhost',
        'dbname' => null,
 	   'port' => '5984',
 	   'encrypted' => false,
        'http_requst' => null,
-	);
+       );
 
     const ALL_DOCS  = '_all_docs';
     const UUIDS      = '_uuids';
