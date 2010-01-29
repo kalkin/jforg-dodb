@@ -288,7 +288,8 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
 	 */
 	public function __get($name)
     {
-        return $this->'get'.ucfirst($name)();
+        $getterMethod = 'get'.ucfirst($name);
+        return $this->$getterMethod();
     }
 
 
@@ -303,7 +304,8 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
 	 */
 	public function __set($name, $value)
     {
-        return $this->'set'.ucfirst($name)();
+        $setterMethod = 'set'.ucfirst($name);
+        return $this->$setterMethod();
     }
 
 	/**
