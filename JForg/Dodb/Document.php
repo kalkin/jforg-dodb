@@ -265,6 +265,17 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
     }
 
     /**
+     * Deletes the document from the database
+     * 
+     * @return void
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function delete()
+    {
+        $this->_dodb($this);
+    }
+
+    /**
      * Checks if a property is unset
      * 
      * @param string $name  Unsets the $name property
