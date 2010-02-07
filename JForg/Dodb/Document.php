@@ -274,7 +274,17 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
     public function __call($name, $arguments)
     {
 
-        return $this;
+        $methodPrefix = substr($name,0,3);
+        if ($methodPrefix === 'get') {
+            $valueName = strtolower(substr($name,3));
+            return $this->_data[$valueName];
+        } elseif ($methodPrefix === 'set') {
+            $valueName = strtolower(substr($methodName,3));
+            $this->_data[$valueName] = $methodArguments[0];
+            return $this;
+        } else {
+            throw new Solar_Exception_MethodNotImplemented();
+        }
     }
 
 
@@ -461,8 +471,7 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
      */
     public function current()
     {
-        print_r(apd_callstack());
-        die();
+        $this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
     }
 
     /**
@@ -473,8 +482,7 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
      */
     public function key()
     {
-        print_r(apd_callstack());
-        die();
+        $this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
     }
 
     /**
@@ -485,8 +493,7 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
      */
     public function next()
     {
-        print_r(apd_callstack());
-        die();
+        $this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
     }
 
     /**
@@ -497,8 +504,7 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
      */
     public function rewind()
     {
-        print_r(apd_callstack());
-        die();
+        $this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
     }
 
     /**
@@ -509,7 +515,6 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
      */
     public function valid()
     {
-        print_r(apd_callstack());
-        die();
+        $this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
     }
 }
