@@ -207,4 +207,124 @@ class Test_JForg_Dodb_Document extends Solar_Test {
     {
         $this->todo('stub');
     }
+    
+    /**
+     * 
+     * Test -- Adds a special property to the document.
+     * 
+     */
+    public function testAddSpecialProperty()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Returns the document id.
+     * 
+     */
+    public function testFetchDocumentId()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Returns all properties with values of a document.
+     * 
+     */
+    public function testFetchProperties()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Returns the name of the properties of a document
+     * 
+     */
+    public function testFetchPropetiesNames()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Returns all special properties with values of a document.
+     * 
+     */
+    public function testFetchSpecialProperties()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Returns the names of the special properties of a document
+     * 
+     */
+    public function testFetchSpecialPropertiesNames()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Returns a value of a special propertu
+     * 
+     */
+    public function testFetchSpecialProperty()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Checks if the document is final
+     * 
+     */
+    public function testIsFinal()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Is the document already populated?
+     * 
+     */
+    public function testIsPopulated()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Returns the document sheme.
+     * 
+     */
+    public function testReturnDocumentSheme()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Returns an array with document data.
+     * 
+     */
+    public function testToArray()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Updates/Sets the special property.
+     * 
+     */
+    public function testUpdateSpecialProperty()
+    {
+        $this->todo('stub');
+    }
 }
