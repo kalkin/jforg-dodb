@@ -327,4 +327,14 @@ class Test_JForg_Dodb_Document extends Solar_Test {
     {
         $this->todo('stub');
     }
+    
+    /**
+     * 
+     * Test -- Deletes the document from the database
+     * 
+     */
+    public function testDelete()
+    {
+        $this->todo('stub');
+    }
 }
