@@ -19,7 +19,7 @@ class JForg_Dodb extends Solar_Factory
      * @since 2010-01-28
      */
     protected $_JForg_Dodb = array(
-        'adapter' = null;
+        'adapter' => null,
             );
 
 }
