@@ -30,6 +30,46 @@ abstract class JForg_Dodb_Adapter extends Solar_Base
             );
 
     /**
+     * The default document type to use
+     * 
+     * @var string  Defaults to null. 
+     * @since 2010-02-07
+     */
+    protected $_default_doc = null;
+
+    /**
+     * If the adapter should fall back to default_doc if the document type is
+     * unrecognized
+     * 
+     * @var boolean  Defaults to false. 
+     * @since 2010-02-07
+     */
+    protected $_type_safe = false;
+
+    /**
+     * TODO: short description.
+     * 
+     * @return TODO
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    protected function _postConfig()
+    {
+        $this->_default_doc = $this->_config['default_doc'];
+        $this->_type_safe = $this->_config['type_safe'];
+    }
+
+    /**
+     * TODO: short description.
+     * 
+     * @return boolean
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function isTypeSafe()
+    {
+        return $this->_type_safe;
+    }
+
+    /**
      * Fetchs a document by id and returns it as an instance of
      * JForg_Dodb_Document
      * 
