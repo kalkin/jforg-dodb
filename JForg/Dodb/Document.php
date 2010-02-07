@@ -256,7 +256,7 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
      * 
      * @param string $name Tests if the document parmater $name is set
      * 
-      @return bool
+     * @return boolean true or false
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
     public function __isset($name)
