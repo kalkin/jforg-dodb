@@ -103,6 +103,24 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
 	protected $_dodb = null;
 
     /**
+     * The iterator position
+     *
+     * @see JForg_Dodb_Document::rewinddir()
+     * @see JForg_Dodb_Document::current() 
+     * @var int  Defaults to 0. 
+     * @since 2010-02-07
+     */
+    protected $_iterator_position = 0;
+
+    /**
+     * An array containing all property names, used for the Iterator interface.
+     * 
+     * @var int  Defaults to 0. 
+     * @since 2010-02-07
+     */
+    protected $_iterator_keys   = null;
+
+    /**
      * Post-construction tasks to complete object construction.
      * 
      * @return void
@@ -138,7 +156,6 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
             $this->_final = $this->_config['final'];
         }
     }
-
 
     /**
      * Populates the document with data. Note: It won't create a new document
@@ -471,7 +488,7 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
      */
     public function current()
     {
-        $this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+        return $this->_data[$this->_iterator_keys[$this->_iterator_position]];
     }
 
     /**
@@ -482,7 +499,7 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
      */
     public function key()
     {
-        $this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+        return $this->_iterator_keys[$this->_iterator_position];
     }
 
     /**
@@ -493,7 +510,7 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
      */
     public function next()
     {
-        $this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+        $this->_iterator_position++;
     }
 
     /**
@@ -504,7 +521,8 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
      */
     public function rewind()
     {
-        $this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+        $this->_iterator_position = 0;
+        $this->_iterator_keys = $this->fetchPropetiesNames();
     }
 
     /**
@@ -515,6 +533,8 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
      */
     public function valid()
     {
-        $this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+        if ( count($this->_iterator_position) > $this->_iterator_position )
+            return true;
+        return false;
     }
 }
