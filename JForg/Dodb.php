@@ -1,8 +1,6 @@
 <?php
 /**
- * TODO: short description.
- * 
- * TODO: long description.
+ * Factory to return an document oriented database adapter instance
  * 
  * @package   JForg_Dodb
  * @author    Bahtiar Gadimov <bahtiar@gadimov.de>
