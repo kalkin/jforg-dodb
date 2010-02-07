@@ -47,9 +47,9 @@ abstract class JForg_Dodb_Adapter extends Solar_Base
     protected $_type_safe = false;
 
     /**
-     * TODO: short description.
+     * Sets the $_type_safe and $_default_doc
      * 
-     * @return TODO
+     * @return void
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
     protected function _postConfig()
