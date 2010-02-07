@@ -27,7 +27,7 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      * @var array
      * 
      */
-	protected $_JForg_Adapter_Couchdb = array(
+	protected $_JForg_Dodb_Adapter_Couchdb = array(
 	   'host' => 'localhost',
        'dbname' => null,
 	   'port' => '5984',
@@ -58,23 +58,152 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
 
 
     /**
-     * TODO: short description.
+     * Fetchs a document by id and returns it as an instance of
+     * JForg_Dodb_Document
      * 
-     * @param int $id 
+     * @param scalar $id The document id
      * 
-     * @return TODO
+     * @return JForg_Dodb_Document
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
-    public function fetch($id) 
+    public function fetch($id)
+	{
+		$this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+	}
+
+    /**
+     * Fetchs documents by ids and returns an instance of
+     * JForg_Dodb_Document_Collection containing instances of JForg_Dodb_Document s
+     * 
+     * @param array $ids Indexed array containing the documents ids
+     * 
+     * @return JForg_Dodb_Document_Collection containing all the documents as instances of JForg_Dodb_Document
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function fetchCollection(array $ids)
+	{
+		$this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+	}
+
+    /**
+     * Saves a document
+     * 
+     * @param JForg_Dodb_Document $doc The document
+     * 
+     * @return JForg_Dodb_Document
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function save(JForg_Dodb_Document $doc)
+	{
+		$this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+	}
+
+    /**
+     * Saves all documents in a JForg_Dodb_Document_Collection.
+     * 
+     * @param JForg_Dodb_Document_Collection $collection A collection of documents
+     * 
+     * @return JForg_Dodb_Document_Collection with all saved documents
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function saveCollection(JForg_Dodb_Document_Collection $collection)
+	{
+		$this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+	}
+
+    /**
+     * Reloads a document with up to date data
+     * 
+     * @param JForg_Dodb_Document $doc The document to reload
+     * 
+     * @return JForg_Dodb_Document
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function reload(JForg_Dodb_Document $doc)
+	{
+		$this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+	}
+
+    /**
+     * Reloads all the documents in a JForg_Dodb_Document_Collection with up to date data.
+     * 
+     * @param JForg_Dodb_Document_Collection $collection  The collection to reload
+     * 
+     * @return JForg_Dodb_Document_Collection
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function reloadCollection(JForg_Dodb_Document_Collection $collection)
+	{
+		$this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+	}
+
+
+    /**
+     * Deletes a document from the database
+     * 
+     * @param JForg_Dodb_Document $doc The document to delete
+     * 
+     * @return void
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function delete(JForg_Dodb_Document $doc)
+	{
+		$this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+	}
+
+    /**
+     * Deletes all documents in a JForg_Dodb_Document_Collection
+     * 
+     * @param JForg_Dodb_Document_Collection $collection The collection of documents to delete
+     * 
+     * @return void
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function deleteCollection(JForg_Dodb_Document_Collection $collection)
+	{
+		$this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+	}
+
+    /**
+     * Returns a database specific string representation of a document
+     * 
+     * @param JForg_Dodb_Document $doc The document
+     * 
+     * @return string
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function documentToString(JForg_Dodb_Document $doc)
+	{
+		$this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+	}
+
+    /**
+     * Returns a specified number of uuids. NOTE: It does not check for
+     * existing document ids; collision-detection happens when you are trying
+     * to save a document. 
+     * 
+     * @param int $count Optional, defaults to 1. How many Uuids should be returned? 
+     * 
+     * @return array An indexed array with id's
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function getUuid($count = 1) 
     {
-        
+        $uri = $this->getUri();
+        $uri->path = array(self::UUIDS);
+        if ( $count > 1 )
+        {
+            $uri->query['count'] = $count; 
+        }
+
+        return $this->query($uri);
     }
 
 
     /**
      * Populates a document with data
      * 
-     * @param array $data 
+     * @param array $data The array containing document data
      * 
      * @return JForg_Dodb_Document
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
@@ -175,7 +304,7 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      * @return array Couchdb response
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
-    protected function save(array $data)
+    protected function _save(array $data)
     {
         $uri = $this->getUri();
         $request = $this->getHttpRequest();
@@ -194,28 +323,6 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
 
         return $this->query($uri, $request);
 
-    }
-
-    /**
-     * Returns a specified number of uuids. NOTE: It does not check for
-     * existing document ids; collision-detection happens when you are trying
-     * to save a document. 
-     * 
-     * @param int $count Optional, defaults to 1. How many Uuids should be returned? 
-     * 
-     * @return array An indexed array with id's
-     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
-     */
-    public function getUuid($count = 1) 
-    {
-        $uri = $this->getUri();
-        $uri->path = array(self::UUIDS);
-        if ( $count > 1 )
-        {
-            $uri->query['count'] = $count; 
-        }
-
-        return $this->query($uri);
     }
 
 
