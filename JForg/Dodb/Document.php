@@ -271,12 +271,13 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
     /**
      * Deletes the document from the database
      * 
-     * @return void
+     * @return JForg_Dodb_Document the deleted document
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
     public function delete()
     {
-        $this->_dodb($this);
+        $this->_dodb->delete($this);
+        return $this;
     }
 
     /**
