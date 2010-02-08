@@ -55,7 +55,10 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
     const ALL_DOCS  = '_all_docs';
     const UUIDS      = '_uuids';
 
-
+    protected $_special_propertys = array ( self::SPECIAL_ATTACHMENT,
+            self::SPECIAL_CONFLICTS, self:: SPECIAL_DELETED_CONFLICTS, 
+            self::SPECIAL_DELETED, self::SPECIAL_ID, self:: SPECIAL_REV_INFO,
+            self::SPECIAL_REVISIONS, self:: SPECIAL_REV);
 
     /**
      * Fetchs a document by id and returns it as an instance of
@@ -68,7 +71,8 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      */
     public function fetch($id)
 	{
-		$this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+		$data = $this->_fetch($id);
+        return $this->_arrayToDoc($data);
 	}
 
     /**
@@ -95,7 +99,11 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      */
     public function save(JForg_Dodb_Document $doc)
 	{
-		$this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+        $data = $this->_save($this->_docToArray($doc));
+        if ( isset($data['ok']) )
+        {
+                return $this->fetch($data['id']);
+        }
 	}
 
     /**
@@ -174,8 +182,9 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      */
     public function documentToString(JForg_Dodb_Document $doc)
 	{
-		$this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+        return json_encode($this->_docToArray($doc));
 	}
+
 
     /**
      * Returns a specified number of uuids. NOTE: It does not check for
@@ -199,6 +208,28 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
         return $this->query($uri);
     }
 
+    /**
+     * Generates an array from a Document it already formated right for
+     * inserting in Couchdb
+     * 
+     * @param JForg_Dodb_Document $doc  The document to format
+     * 
+     * @return array
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    protected function _docToArray(JForg_Dodb_Document $doc)
+    {
+        $data = $doc->toArray();
+        if ( isset($data['id']) )
+        {
+                $data['special']['_id'] = $data['id'];
+                unset($data['id']);
+        }
+
+
+        return array_merge($data['data'], $data['special']);
+    }
+
 
     /**
      * Populates a document with data
@@ -208,9 +239,44 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      * @return JForg_Dodb_Document
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
-    protected function _populateDoc($data)
+    protected function _arrayToDoc(array $data)
     {
+        $doc = null;
+        if (isset($data['type']))
+        {
+            try{
+                $doc = Solar::factory($data['type']);
+                if ( !($doc instanceof JForg_Dodb_Document) )
+                {
+                    $this->_exception('NO_CLASS_FOR_THIS_TYPE', array('type' => $data['type']));
+                }
+            } catch (Exception $e )
+            {
+                if ( $this->_type_safe )
+                    $this->_exception('DOC_HAS_NO_TYPE', array('doc' => $data));
 
+                else 
+                    $doc = Solar::factory('JForg_Dodb_Document');
+            }
+        }
+        elseif ( !$this->_type_safe )
+        {
+            $doc = Solar::factory('JForg_Dodb_Document');
+        }
+        
+        $tmp['id'] = $data['_id'];
+        unset($data['_id']);
+        foreach ( $data as $key => $value )
+        {
+            if ( in_array($key, $this->_special_propertys, true) )
+            {
+                $tmp['special'][$key] = $value;
+            } else {
+                $tmp['data'][$key] = $value;
+            }
+        }
+        
+        return $doc->populate($tmp);
     }
 
     /**
@@ -340,10 +406,10 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
         if ( $request == null )
             $request = $this->getHttpRequest();
 
-        print($uri->get(true)."\n\n");
-        print("\n");
-        Solar::dump($request);
-        print("\n");
+        //print($uri->get(true)."\n\n");
+        //print("\n");
+        //Solar::dump($request);
+        //print("\n");
 
         $request->setUri($uri->get(true));
     	$json = $request->fetch()->content;
