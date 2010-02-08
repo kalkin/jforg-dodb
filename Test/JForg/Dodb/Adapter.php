@@ -103,11 +103,11 @@ abstract class Test_JForg_Dodb_Adapter extends Solar_Test {
         $doc = Solar::factory('JForg_Dodb_Document');
         $doc->populate($data);
         $result = $doc->save();
-        print("$result\n\n");
+        Solar::dump($doc);
         $this->assertInstance($result, 'JForg_Dodb_Document');
         
     }
-    
+   
 
     public function testSavePut()
     {
@@ -116,8 +116,7 @@ abstract class Test_JForg_Dodb_Adapter extends Solar_Test {
                     array('foo' => 'asd'),));
         $doc->setFrucht('Himbere');
         $result = $doc->save();
-        Solar::dump($result);
-        print("$result\n\n");
+        Solar::dump($doc);
         $this->assertInstance($result, 'JForg_Dodb_Document');
         
     }
@@ -129,7 +128,25 @@ abstract class Test_JForg_Dodb_Adapter extends Solar_Test {
      */
     public function testDelete()
     {
-        $this->skip('abstract method');
+        $data = array(
+                'data' => array ('bar' => 'foo'),
+                'spcial' => null,
+                );
+
+        $doc = Solar::factory('JForg_Dodb_Document');
+        $doc->populate($data);
+        $doc->save()->delete();
+         
+        $result = null;
+        try {
+        $this->_adapter->fetch($doc->fetchDocumentId());
+        } catch (JForg_Dodb_Adapter_Exception_NoSuchDocument $e)
+        {
+            $result = $e;
+        }
+
+        $this->assertInstance($result, 'JForg_Dodb_Adapter_Exception_NoSuchDocument');
+
     }
     
     /**
