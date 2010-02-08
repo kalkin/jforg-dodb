@@ -55,6 +55,11 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
     const ALL_DOCS  = '_all_docs';
     const UUIDS      = '_uuids';
 
+    /**
+     * Contains all the special proprtys a couchdb document could have.
+     *
+     * @var array Default contains all SPECIAL_* consts
+     */
     protected $_special_propertys = array ( self::SPECIAL_ATTACHMENT,
             self::SPECIAL_CONFLICTS, self:: SPECIAL_DELETED_CONFLICTS, 
             self::SPECIAL_DELETED, self::SPECIAL_ID, self:: SPECIAL_REV_INFO,
