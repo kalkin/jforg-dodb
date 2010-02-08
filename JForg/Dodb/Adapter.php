@@ -54,6 +54,7 @@ abstract class JForg_Dodb_Adapter extends Solar_Base
      */
     protected function _postConfig()
     {
+        parent::_postConfig();
         $this->_default_doc = $this->_config['default_doc'];
         $this->_type_safe = $this->_config['type_safe'];
     }
