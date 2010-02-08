@@ -176,7 +176,7 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
      * @return JForg_Dodb_Document
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
-    public function populate(array $values = array())
+    public function populate(array $values)
     {
         if ( $this->_sheme != null )
         {
@@ -187,6 +187,10 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
         $this->_data = $values['data'];
         if ( isset($values['id']) )
             $this->_documentId = $values['id'];
+
+        if ( isset($values['special'] ) )
+            $this->_special = $values['special'];
+
         $this->_populated = true;
 
         return $this;
@@ -368,7 +372,7 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
     {
         return array('id' => $this->_documentId, 
                 'data' => $this->_data,
-                'special' => $this->_special);
+                'special' => $this->_special,);
 
     }
 
