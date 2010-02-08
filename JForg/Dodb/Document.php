@@ -166,7 +166,7 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
      * {{code: php
      *      array(  
      *          'id'        => 'e8d901298e856b9ff40656f30a6c036d',
-     *          'data' i    => array('foo' => 'bar', 'buz' => 'fuz'),
+     *          'data'      => array('foo' => 'bar', 'buz' => 'fuz'),
      *          'special'   => array('_rev' => '1', 'zum' => 'asd')
      *      );
      * }}
@@ -178,15 +178,15 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
      */
     public function populate(array $values = array())
     {
-        if ( $this-_sheme != null )
+        if ( $this->_sheme != null )
         {
             if (!$this->_checkSheme($values['data']))
                 throw $this->_exception('NOT_EQUATES_SHEME');
         }
 
         $this->_data = $values['data'];
-        $this->_documentId = $values['id'];
-        $this->_values = $values['values'];
+        if ( isset($values['id']) )
+            $this->_documentId = $values['id'];
         $this->_populated = true;
 
         return $this;
