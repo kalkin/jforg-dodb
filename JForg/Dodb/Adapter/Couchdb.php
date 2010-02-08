@@ -311,6 +311,7 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      * @param scalar $data The document id
      * 
      * @return array result
+     * @throws JForg_Dodb_Adapter_Exception_NoSuchDocument
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
     protected function _fetch($data)
@@ -425,7 +426,11 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
         $request->setUri($uri->get(true));
     	$json = $request->fetch()->content;
 
-    	return json_decode($json,true);
+    	$result =  json_decode($json,true);
+        if (isset($result['error']) && isset($result['reason']))
+            $this->_createException($result);
+
+        return $result;
     }
 
     /**
@@ -479,5 +484,24 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
         $httpClient->setContent('');
 
         return $httpClient;
+    }
+
+    /**
+     * Converts an Couchdb error to an Exception and throws it
+     * 
+     * @param array $error The response array containing at least 'error' and
+     * 'reason' fields
+     * 
+     * @return void
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    protected function _createException(array $error)
+    {
+        if ( $error['error'] === 'not_found' )
+            throw Solar::exception($this, 'ERR_NO_SUCH_DOCUMENT', 'ERR_NO_SUCH_DOCUMENT',  $error);
+        else 
+            throw Solar::exception($this, 'ERR_'.strtoupper($error['error']),
+                    'ERR_'.strtoupper($error['error']), $error);
+                
     }
 }
