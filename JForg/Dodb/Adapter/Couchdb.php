@@ -379,7 +379,7 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
         {
             $request->setMethod(Solar_Http_Request::METHOD_PUT);
             $uri->path[] = $data['_id'];
-            unset($data['_id']);
+            //unset($data['_id']);
         } else {
             $request->setMethod(Solar_Http_Request::METHOD_POST);
         }
