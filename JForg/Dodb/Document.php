@@ -307,8 +307,8 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
             $valueName = strtolower(substr($name,3));
             return $this->_data[$valueName];
         } elseif ($methodPrefix === 'set') {
-            $valueName = strtolower(substr($methodName,3));
-            $this->_data[$valueName] = $methodArguments[0];
+            $valueName = strtolower(substr($name,3));
+            $this->_data[$valueName] = $arguments[0];
             return $this;
         } else {
             throw new Solar_Exception_MethodNotImplemented();
