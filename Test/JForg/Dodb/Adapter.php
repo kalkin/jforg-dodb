@@ -83,7 +83,7 @@ abstract class Test_JForg_Dodb_Adapter extends Solar_Test {
      */
     public function testFetch()
     {
-        $result = $this->_adapter->fetch('21513ea10404f021d443b0dd850ff998');
+        $result = $this->_adapter->fetch('15a34caf9838799012f967b401acf944');
         print($result);
         $this->assertInstance($result, 'JForg_Dodb_Document');
     }
@@ -93,12 +93,13 @@ abstract class Test_JForg_Dodb_Adapter extends Solar_Test {
      * Test -- Saves a document
      * 
      */
-    public function testSave()
+    public function testSavePost()
     {
         $data = array(
                 'data' => array ('bar' => 'foo'),
                 'spcial' => null,
                 );
+
         $doc = Solar::factory('JForg_Dodb_Document');
         $doc->populate($data);
         $result = $doc->save();
@@ -107,6 +108,19 @@ abstract class Test_JForg_Dodb_Adapter extends Solar_Test {
         
     }
     
+
+    public function testSavePut()
+    {
+        $doc = Solar::factory('JForg_Dodb_Document');
+        $doc->populate(array('id' => "".rand(999, 999999), 'data' =>
+                    array('foo' => 'asd'),));
+        $doc->setFrucht('Himbere');
+        $result = $doc->save();
+        Solar::dump($result);
+        print("$result\n\n");
+        $this->assertInstance($result, 'JForg_Dodb_Document');
+        
+    }
     
     /**
      * 
@@ -184,6 +198,26 @@ abstract class Test_JForg_Dodb_Adapter extends Solar_Test {
      * 
      */
     public function testSaveCollection()
+    {
+        $this->skip('abstract method');
+    }
+    
+    /**
+     * 
+     * Test -- TODO: short description.
+     * 
+     */
+    public function testIsTypeSafe()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Saves a document
+     * 
+     */
+    public function testSave()
     {
         $this->skip('abstract method');
     }
