@@ -63,6 +63,7 @@ abstract class Test_JForg_Dodb_Adapter extends Solar_Test {
             $this->_adapter_class,
             $this->_config
         );
+        Solar_Registry::set('dodb', $this->_adapter);
     }
     
     /**
@@ -74,6 +75,38 @@ abstract class Test_JForg_Dodb_Adapter extends Solar_Test {
     {
         $this->assertInstance($this->_adapter, $this->_adapter_class);
     }
+    
+    /**
+     * 
+     * Test -- Fetchs a document by id and returns it as an instance of JForg_Dodb_Document
+     * 
+     */
+    public function testFetch()
+    {
+        $result = $this->_adapter->fetch('21513ea10404f021d443b0dd850ff998');
+        print($result);
+        $this->assertInstance($result, 'JForg_Dodb_Document');
+    }
+
+    /**
+     * 
+     * Test -- Saves a document
+     * 
+     */
+    public function testSave()
+    {
+        $data = array(
+                'data' => array ('bar' => 'foo'),
+                'spcial' => null,
+                );
+        $doc = Solar::factory('JForg_Dodb_Document');
+        $doc->populate($data);
+        $result = $doc->save();
+        print("$result\n\n");
+        $this->assertInstance($result, 'JForg_Dodb_Document');
+        
+    }
+    
     
     /**
      * 
@@ -101,16 +134,6 @@ abstract class Test_JForg_Dodb_Adapter extends Solar_Test {
      * 
      */
     public function testDocumentToString()
-    {
-        $this->skip('abstract method');
-    }
-    
-    /**
-     * 
-     * Test -- Fetchs a document by id and returns it as an instance of JForg_Dodb_Document
-     * 
-     */
-    public function testFetch()
     {
         $this->skip('abstract method');
     }
@@ -151,16 +174,6 @@ abstract class Test_JForg_Dodb_Adapter extends Solar_Test {
      * 
      */
     public function testReloadCollection()
-    {
-        $this->skip('abstract method');
-    }
-    
-    /**
-     * 
-     * Test -- Saves a document
-     * 
-     */
-    public function testSave()
     {
         $this->skip('abstract method');
     }
