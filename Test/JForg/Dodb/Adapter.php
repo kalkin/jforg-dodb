@@ -103,7 +103,6 @@ abstract class Test_JForg_Dodb_Adapter extends Solar_Test {
         $doc = Solar::factory('JForg_Dodb_Document');
         $doc->populate($data);
         $result = $doc->save();
-        Solar::dump($doc);
         $this->assertInstance($result, 'JForg_Dodb_Document');
         
     }
@@ -135,7 +134,8 @@ abstract class Test_JForg_Dodb_Adapter extends Solar_Test {
 
         $doc = Solar::factory('JForg_Dodb_Document');
         $doc->populate($data);
-        $doc->save()->delete();
+        $doc = $doc->save()->delete();
+        Solar::dump($doc);
          
         $result = null;
         try {
