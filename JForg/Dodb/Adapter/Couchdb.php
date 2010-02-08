@@ -102,7 +102,7 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
         $data = $this->_save($this->_docToArray($doc));
         if ( isset($data['ok']) )
         {
-                return $this->fetch($data['id']);
+            return $this->fetch($data['id']);
         }
 	}
 
@@ -116,7 +116,10 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      */
     public function saveCollection(JForg_Dodb_Document_Collection $collection)
 	{
-		$this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+        foreach ($collection as $record )
+        {
+            $record->document->save();
+        }
 	}
 
     /**
@@ -129,7 +132,7 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      */
     public function reload(JForg_Dodb_Document $doc)
 	{
-		$this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+        return $this->fetch($doc->fetchDocumentId());
 	}
 
     /**
@@ -142,7 +145,10 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      */
     public function reloadCollection(JForg_Dodb_Document_Collection $collection)
 	{
-		$this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+        foreach ($collection as $record )
+        {
+            $record->document->reload();
+        }
 	}
 
 
@@ -156,7 +162,7 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      */
     public function delete(JForg_Dodb_Document $doc)
 	{
-		$this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+        $this->_delete($doc->fetchDocumentId(), $doc->fetchSpecialProperty('_rev'));
 	}
 
     /**
@@ -333,7 +339,7 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
             $uri->path[] = $data;
         }
         else 
-            throw $this->_exception('BAD_PARAMS');
+            throw Solar::exception($this, 'ERR_NO_SUCH_DOCUMENT', 'ERR_NO_SUCH_DOCUMENT',  array('id' => $data));
 
         return  $this->query($uri, $request);
     }
