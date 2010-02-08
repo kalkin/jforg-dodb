@@ -445,8 +445,8 @@ class JForg_Dodb_Document extends Solar_Base implements Iterator
      */
     public function fetchSpecialProperty($name)
     {
-        if ( array_key_exists($this->special[$name]) )
-            return $this->special[$name];
+        if ( array_key_exists($this->_special[$name]) )
+            return $this->_special[$name];
         else
             throw $this->_exception('NO_SUCH_SPECIAL_PROPERTY', array('property', $name));
     }
