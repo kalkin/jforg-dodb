@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains a document and keys which were used to find it.
+ * An solar like class which represents an Array
  * 
  * @author    Bahtiar Gadimov <bahtiar@gadimov.de>
  * @copyright (c) 2010 Bahtiar Gadimov
