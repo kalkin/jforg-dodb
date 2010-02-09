@@ -91,7 +91,7 @@ class JForg_Dodb_Array extends Solar_Base implements Iterator
     public function rewind()
     {
         $this->_iterator_position = 0;
-        $this->_iterator_keys = $this->fetchPropetiesNames();
+        $this->_iterator_keys = array_keys($this->_data);
     }
 
     /**
@@ -102,7 +102,7 @@ class JForg_Dodb_Array extends Solar_Base implements Iterator
      */
     public function valid()
     {
-        if ( count($this->_iterator_position) > $this->_iterator_position )
+        if ( count($this->_data) > $this->_iterator_position )
             return true;
         return false;
     }
