@@ -123,7 +123,7 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
 	{
         foreach ($collection as $doc )
         {
-            $doc->save()
+            $doc->save();
         }
 	}
 
