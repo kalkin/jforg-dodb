@@ -27,6 +27,7 @@ class Test_JForg_Dodb_Record extends Solar_Test {
         $expect = 'JForg_Dodb_Record';
         $this->assertInstance($actual, $expect);
     }
+
     
     /**
      * 
@@ -35,7 +36,9 @@ class Test_JForg_Dodb_Record extends Solar_Test {
      */
     public function test__get()
     {
-        $this->todo('stub');
+
+        $actual = Solar::factory('JForg_Dodb_Record')->populate('asd', Solar::factory('JForg_Dodb_Document'))->document;
+        $this->assertInstance($actual, 'JForg_Dodb_Document');
     }
     
     /**
@@ -45,7 +48,15 @@ class Test_JForg_Dodb_Record extends Solar_Test {
      */
     public function testPopulate()
     {
-        $this->todo('stub');
+        $actual = Solar::factory('JForg_Dodb_Record')
+            ->populate('foo', Solar::factory('JForg_Dodb_Document'))
+            ->document
+            ->setHimbeere('asd')
+            ->getHimbeere();
+        Solar::dump($actual);;
+        
+        $this->assertEquals($actual, 'asd');
+
     }
     
     /**
@@ -55,6 +66,14 @@ class Test_JForg_Dodb_Record extends Solar_Test {
      */
     public function testGetKey()
     {
-        $this->todo('stub');
+        $actual = Solar::factory('JForg_Dodb_Record')
+            ->populate('foo', Solar::factory('JForg_Dodb_Document'))
+            ->getKey();
+        $this->assertEquals($actual, 'foo');
+    }
+
+    protected function _postConfig()
+    {
+        Solar_Registry::set('dodb', 'JForg_Dodb');
     }
 }
