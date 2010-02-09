@@ -7,7 +7,7 @@
  * @copyright (c) 2010 Bahtiar Gadimov
  * @since     2010-02-08
  */
-class JForg_Dodb_Array extends Solar_Base implements Iterator
+class JForg_Dodb_Array extends Solar_Base implements Iterator, Countable
 {
 
 	/**
@@ -105,6 +105,17 @@ class JForg_Dodb_Array extends Solar_Base implements Iterator
         if ( count($this->_data) > $this->_iterator_position )
             return true;
         return false;
+    }
+
+    /**
+     * Implementation of Countable interface
+     * 
+     * @return int
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function count()
+    {
+        return count($this->_data);
     }
 
 }

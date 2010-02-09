@@ -51,4 +51,17 @@ class Test_JForg_Dodb_Array extends Solar_Test {
 
     }
 
+    /**
+     * TODO: short description.
+     * 
+     * @return TODO
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function testCount()
+    {
+        $actual = count(Solar::factory('JForg_Dodb_Array')
+            ->populate(array ( 'foo', 'bar', 'asd', 'bar' => 'foo' )));
+        Solar::dump($actual);
+        $this->assertEquals($actual,4);
+    }
 }
