@@ -82,11 +82,11 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
 
     /**
      * Fetchs documents by ids and returns an instance of
-     * JForg_Dodb_Document_Collection containing instances of JForg_Dodb_Document s
+     * JForg_Dodb_Collection containing instances of JForg_Dodb_Document s
      * 
      * @param array $ids Indexed array containing the documents ids
      * 
-     * @return JForg_Dodb_Document_Collection containing all the documents as instances of JForg_Dodb_Document
+     * @return JForg_Dodb_Collection containing all the documents as instances of JForg_Dodb_Document
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
     public function fetchCollection(array $ids)
@@ -112,14 +112,14 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
 	}
 
     /**
-     * Saves all documents in a JForg_Dodb_Document_Collection.
+     * Saves all documents in a JForg_Dodb_Collection.
      * 
-     * @param JForg_Dodb_Document_Collection $collection A collection of documents
+     * @param JForg_Dodb_Collection $collection A collection of documents
      * 
-     * @return JForg_Dodb_Document_Collection with all saved documents
+     * @return JForg_Dodb_Collection with all saved documents
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
-    public function saveCollection(JForg_Dodb_Document_Collection $collection)
+    public function saveCollection(JForg_Dodb_Collection $collection)
 	{
         foreach ($collection as $record )
         {
@@ -141,14 +141,14 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
 	}
 
     /**
-     * Reloads all the documents in a JForg_Dodb_Document_Collection with up to date data.
+     * Reloads all the documents in a JForg_Dodb_Collection with up to date data.
      * 
-     * @param JForg_Dodb_Document_Collection $collection  The collection to reload
+     * @param JForg_Dodb_Collection $collection  The collection to reload
      * 
-     * @return JForg_Dodb_Document_Collection
+     * @return JForg_Dodb_Collection
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
-    public function reloadCollection(JForg_Dodb_Document_Collection $collection)
+    public function reloadCollection(JForg_Dodb_Collection $collection)
 	{
         foreach ($collection as $record )
         {
@@ -171,14 +171,14 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
 	}
 
     /**
-     * Deletes all documents in a JForg_Dodb_Document_Collection
+     * Deletes all documents in a JForg_Dodb_Collection
      * 
-     * @param JForg_Dodb_Document_Collection $collection The collection of documents to delete
+     * @param JForg_Dodb_Collection $collection The collection of documents to delete
      * 
      * @return void
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
-    public function deleteCollection(JForg_Dodb_Document_Collection $collection)
+    public function deleteCollection(JForg_Dodb_Collection $collection)
 	{
 		$this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
 	}
