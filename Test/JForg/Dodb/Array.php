@@ -15,6 +15,7 @@ class Test_JForg_Dodb_Array extends Solar_Test {
      */
     protected $_Test_JForg_Dodb_Array = array(
     );
+
     
     /**
      * 
@@ -28,36 +29,7 @@ class Test_JForg_Dodb_Array extends Solar_Test {
         $this->assertInstance($actual, $expect);
     }
     
-    /**
-     * 
-     * Test -- Return the current element
-     * 
-     */
-    public function testCurrent()
-    {
-        $this->todo('stub');
-    }
-    
-    /**
-     * 
-     * Test -- Return the key of the current element
-     * 
-     */
-    public function testKey()
-    {
-        $this->todo('stub');
-    }
-    
-    /**
-     * 
-     * Test -- Move forward to next element
-     * 
-     */
-    public function testNext()
-    {
-        $this->todo('stub');
-    }
-    
+
     /**
      * 
      * Test -- Populates JForg_Dodb_Array with data
@@ -65,26 +37,18 @@ class Test_JForg_Dodb_Array extends Solar_Test {
      */
     public function testPopulate()
     {
-        $this->todo('stub');
+        $actual = Solar::factory('JForg_Dodb_Array');
+        $actual->populate(array ( 'foo', 'bar', 'asd', 'bar' => 'foo' ));
+
+        $i = 0;
+        foreach ( $actual as $val )
+        {
+            Solar::dump($val);
+            $i++;
+        }
+
+        $this->assertEquals($i, 4);
+
     }
-    
-    /**
-     * 
-     * Test -- Rewind the Iterator to the first element
-     * 
-     */
-    public function testRewind()
-    {
-        $this->todo('stub');
-    }
-    
-    /**
-     * 
-     * Test -- Checks if current position is valid
-     * 
-     */
-    public function testValid()
-    {
-        $this->todo('stub');
-    }
+
 }
