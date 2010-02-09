@@ -3,6 +3,7 @@
  * An solar like class which represents an Array
  * 
  * @author    Bahtiar Gadimov <bahtiar@gadimov.de>
+ * @package   JForg_Dodb_Array
  * @copyright (c) 2010 Bahtiar Gadimov
  * @since     2010-02-08
  */
@@ -38,7 +39,7 @@ class JForg_Dodb_Array extends Solar_Base implements Iterator
     /**
      * Populates JForg_Dodb_Array with data
      * 
-     * @param array $data 
+     * @param array $data Array which is used to populate JForg_Dodb_Array
      * 
      * @return void
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
