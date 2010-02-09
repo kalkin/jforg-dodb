@@ -23,7 +23,7 @@ class JForg_Dodb_Collection extends JForg_Dodb_Array
     /**
      * Appends a JForg_Dodb_Record to the Collection
      * 
-     * @param JForg_Dodb_Record record The record to add
+     * @param JForg_Dodb_Record $record The record to add
      * 
      * @return JForg_Dodb_Collection
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
