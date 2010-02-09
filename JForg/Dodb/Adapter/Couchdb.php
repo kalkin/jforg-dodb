@@ -91,7 +91,15 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      */
     public function fetchCollection(array $ids)
 	{
-		$this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('name' => __METHOD__));
+        $collection = Solar::factory('JForg_Dodb_Collection');
+        foreach ( $ids as $id )
+        {
+            $doc = $this->fetch($id);
+            $record = Solar::factory('JForg_Dodb_Record')->populate($doc->fetchDocumentId(), $doc);
+            $collection->append($record);
+        }
+
+        return $collection;
 	}
 
     /**
@@ -216,7 +224,8 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
             $uri->query['count'] = $count; 
         }
 
-        return $this->query($uri);
+        $result = $this->query($uri);
+        return $result['uuids'];
     }
 
     /**
