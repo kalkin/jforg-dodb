@@ -121,9 +121,9 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      */
     public function saveCollection(JForg_Dodb_Document_Collection $collection)
 	{
-        foreach ($collection as $doc )
+        foreach ($collection as $record )
         {
-            $doc->save();
+            $record->document->save();
         }
 	}
 
@@ -150,9 +150,9 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      */
     public function reloadCollection(JForg_Dodb_Document_Collection $collection)
 	{
-        foreach ($collection as $doc )
+        foreach ($collection as $record )
         {
-            $doc->reload();
+            $record->document->reload();
         }
 	}
 
