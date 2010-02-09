@@ -35,18 +35,14 @@ class Test_JForg_Dodb_Collection extends Solar_Test {
      */
     public function testAppend()
     {
-        $this->todo('stub');
+        $actual = Solar::factory('JForg_Dodb_Collection')->append(Solar::factory('JForg_Dodb_Record'));
+        $actual->append(Solar::factory('JForg_Dodb_Record'));
+        $actual->append(Solar::factory('JForg_Dodb_Record'));
+        $actual->append(Solar::factory('JForg_Dodb_Record'));
+
+        $this->assertEquals(count($actual),4);
     }
     
-    /**
-     * 
-     * Test -- Return the current element
-     * 
-     */
-    public function testCurrent()
-    {
-        $this->todo('stub');
-    }
     
     /**
      * 
