@@ -93,7 +93,7 @@ abstract class Test_JForg_Dodb_Adapter extends Solar_Test {
      * Test -- Saves a document
      * 
      */
-    public function testSavePost()
+    public function testSave()
     {
         $data = array(
                 'data' => array ('bar' => 'foo'),
@@ -176,7 +176,16 @@ abstract class Test_JForg_Dodb_Adapter extends Solar_Test {
      */
     public function testFetchCollection()
     {
-        $this->skip('abstract method');
+        $ids = array(
+            '0a00608532027a7cb4afd38e4b88edf2',
+            '0e50f0491dd69ecec7301801aa6dfdb5',
+            '173454',
+            '21381',
+                );
+
+        $actual = $this->_adapter->fetchCollection($ids);
+        $this->assertInstance($actual, 'JForg_Dodb_Collection');
+        $this->assertEquals(count($actual), 4);
     }
     
     /**
@@ -186,7 +195,8 @@ abstract class Test_JForg_Dodb_Adapter extends Solar_Test {
      */
     public function testGetUuid()
     {
-        $this->skip('abstract method');
+        $actual = $this->_adapter->getUuid(23);
+        $this->assertEquals(count($actual), 23);
     }
     
     /**
@@ -219,23 +229,4 @@ abstract class Test_JForg_Dodb_Adapter extends Solar_Test {
         $this->skip('abstract method');
     }
     
-    /**
-     * 
-     * Test -- TODO: short description.
-     * 
-     */
-    public function testIsTypeSafe()
-    {
-        $this->todo('stub');
-    }
-    
-    /**
-     * 
-     * Test -- Saves a document
-     * 
-     */
-    public function testSave()
-    {
-        $this->skip('abstract method');
-    }
 }
