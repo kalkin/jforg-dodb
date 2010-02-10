@@ -60,7 +60,8 @@ abstract class JForg_Dodb_Adapter extends Solar_Base
     }
 
     /**
-     * TODO: short description.
+     * Falls the adapter back to default_doc when the document type isn't
+     * recocgnized?
      * 
      * @return boolean
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
