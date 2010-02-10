@@ -186,7 +186,10 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
                 throw $this->_exception('NOT_EQUATES_SHEME');
         }
 
-        $this->_data = $values['data'];
+        foreach($values['data'] as $key => $value)
+        {
+            $this->$key = $value;
+        }
 
         if ( isset($values['id']) )
             $this->_documentId = $values['id'];
@@ -373,7 +376,7 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
 	public function __set($name, $value)
     {
         $setterMethod = 'set'.ucfirst($name);
-        return $this->$setterMethod();
+        return $this->$setterMethod($name, $value);
     }
 
 	/**
