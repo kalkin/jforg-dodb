@@ -252,6 +252,9 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
         }
 
         $result = $this->query($uri);
+
+        if ($count === 1)
+            return $result['uuids'][0];
         return $result['uuids'];
     }
 
