@@ -38,6 +38,29 @@ class JForg_Couchdb_Document_Design extends JForg_Dodb_Document
 {
 
 
+    /**
+     * Magic call implements "view...()" for executing the views
+     * Calls parent:__calL();
+     *
+     * @param mixed $name   The name of the called function 
+     * @param array $arguments The function arguments
+     * 
+     * @return JForg_Dodb_Collection
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function __call($name, $arguments)
+    {
+        $methodPrefix = substr($name,0,4);
+
+        if ( $methodPrefix === 'view' )
+        {
+            $valueName = substr($name,3);
+            return $this->_callView(strtolower($valueName{0}), $arguments[0]);
+        } else {
+            parent::__call($name, $arguments);
+        }
+
+    }
 
     /**
      * Calls a view with given params
