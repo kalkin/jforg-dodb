@@ -26,7 +26,8 @@ class JForg_Dodb_Collection extends JForg_Dodb_Array
     }
 
     /**
-     * Deletes documents stored in the records in this collection
+     * Deletes documents stored in the records in this collection from the
+     * database
      * 
      * @return JForg_Dodb_Collection
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
