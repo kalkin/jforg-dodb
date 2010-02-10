@@ -27,6 +27,18 @@ class Test_JForg_Dodb_Document extends Solar_Test {
         $expect = 'JForg_Dodb_Document';
         $this->assertInstance($actual, $expect);
     }
+
+    /**
+     * Sets JForg_Dodb_Adapter_Couchdb as dodb in to registry
+     * 
+     * @return void
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    protected function _postConfig()
+    {
+        parent::_postConfig();
+        Solar_Registry::set('dodb', 'JForg_Dodb_Adapter_Couchdb');
+    }
     
     /**
      * 
