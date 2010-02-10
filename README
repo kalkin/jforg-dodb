@@ -14,4 +14,10 @@ Authors
 Daniel Gultsch
 Bahtiar Gadimov
 
+Version
+-------
+This is the very first prealpha version of the library. The
+JForg_Dodb_Document is mostly untested. This relase is highly
+experimental. DONT USE IT IN PRODUCTION yet.
+
 // vim: ft=asciidoc tw=74
