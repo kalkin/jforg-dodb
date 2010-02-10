@@ -104,7 +104,7 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
     public function fetch($id)
 	{
 		$data = $this->_fetch($id);
-        return $this->_arrayToDoc($data);
+        return $this->arrayToDocument($data);
 	}
 
     /**
@@ -279,14 +279,14 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
 
 
     /**
-     * Populates a document with data
+     * Generates from a database specific data a JForg_Dodb_Document
      * 
-     * @param array $data The array containing document data
+     * @param array $data The database specific data
      * 
      * @return JForg_Dodb_Document
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
-    protected function _arrayToDoc(array $data)
+    public function arrayToDocument(array $data)
     {
         $doc = null;
         if (isset($data['type']))
@@ -324,6 +324,32 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
         }
         
         return $doc->populate($tmp);
+    }
+
+    /**
+     * Generates from a database specific data set a collection containing
+     * JForg_Dodb_Records widh JForg_Dodb_Document
+     * 
+     * @param array $data The database specific data
+     * 
+     * @return JForg_Dodb_Collection
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function arrayToCollection(array $data)
+    {
+        $collection = Solar::factory('JForg_Dodb_Collection');
+        foreach ($data as $key => $docData)
+        {
+            $record = Solar::factory('JForg_Dodb_Record');
+            $doc = $this->arrayToDocument($docData);
+            if ( !is_int($key) )
+                $key = $doc->fetchDocumentId();
+
+            $record->populate($key, $doc);
+                
+            $collection->append($record);
+        }
+
     }
 
     /**
