@@ -63,7 +63,7 @@ class JForg_Dodb_Record extends Solar_Base {
     }
 
     /**
-     * TODO: short description.
+     * Returns the key which was used to find the document
      * 
      * @return mixed
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
