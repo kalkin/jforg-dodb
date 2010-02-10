@@ -102,16 +102,6 @@ class Test_JForg_Dodb_Document extends Solar_Test {
     
     /**
      * 
-     * Test -- Return the current element
-     * 
-     */
-    public function testCurrent()
-    {
-        $this->todo('stub');
-    }
-    
-    /**
-     * 
      * Test -- Returns the parameter names
      * 
      */
@@ -152,26 +142,6 @@ class Test_JForg_Dodb_Document extends Solar_Test {
     
     /**
      * 
-     * Test -- Return the key of the current element
-     * 
-     */
-    public function testKey()
-    {
-        $this->todo('stub');
-    }
-    
-    /**
-     * 
-     * Test -- Move forward to next element
-     * 
-     */
-    public function testNext()
-    {
-        $this->todo('stub');
-    }
-    
-    /**
-     * 
      * Test -- Populates the document with data
      * 
      */
@@ -192,16 +162,6 @@ class Test_JForg_Dodb_Document extends Solar_Test {
     
     /**
      * 
-     * Test -- Rewind the Iterator to the first element
-     * 
-     */
-    public function testRewind()
-    {
-        $this->todo('stub');
-    }
-    
-    /**
-     * 
      * Test -- Saves the document to the dodb
      * 
      */
@@ -209,17 +169,7 @@ class Test_JForg_Dodb_Document extends Solar_Test {
     {
         $this->todo('stub');
     }
-    
-    /**
-     * 
-     * Test -- Checks if current position is valid
-     * 
-     */
-    public function testValid()
-    {
-        $this->todo('stub');
-    }
-    
+
     /**
      * 
      * Test -- Adds a special property to the document.

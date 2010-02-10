@@ -94,25 +94,6 @@ class Test_JForg_Dodb_Collection extends Solar_Test {
         $this->todo('stub');
     }
     
-    /**
-     * 
-     * Test -- Return the key of the current element
-     * 
-     */
-    public function testKey()
-    {
-        $this->todo('stub');
-    }
-    
-    /**
-     * 
-     * Test -- Move forward to next element
-     * 
-     */
-    public function testNext()
-    {
-        $this->todo('stub');
-    }
     
     /**
      * 
@@ -136,16 +117,6 @@ class Test_JForg_Dodb_Collection extends Solar_Test {
     
     /**
      * 
-     * Test -- Rewind the Iterator to the first element
-     * 
-     */
-    public function testRewind()
-    {
-        $this->todo('stub');
-    }
-    
-    /**
-     * 
      * Test -- Saves all
      * 
      */
@@ -154,13 +125,4 @@ class Test_JForg_Dodb_Collection extends Solar_Test {
         $this->todo('stub');
     }
     
-    /**
-     * 
-     * Test -- Checks if current position is valid
-     * 
-     */
-    public function testValid()
-    {
-        $this->todo('stub');
-    }
 }
