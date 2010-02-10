@@ -10,15 +10,6 @@
 class JForg_Dodb_Collection extends JForg_Dodb_Array
 {
 
-	/**
-	 * TODO: description.
-	 * 
-	 * @var mixed
-	 * @since 2010-02-08
-	 */
-	protected $_JForg_Dodb_Array = array(
-            'dodb'  => 'dodb',
-            );
 
     /**
      * Appends a JForg_Dodb_Record to the Collection
@@ -35,12 +26,24 @@ class JForg_Dodb_Collection extends JForg_Dodb_Array
     }
 
     /**
-     * TODO: short description.
+     * Deletes documents stored in the records in this collection
      * 
      * @return JForg_Dodb_Collection
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
     public function deleteAll()
+    {
+        foreach ($this->_data as $record)
+            $record->document->delete();
+    }
+
+    /**
+     * Emnties the Collection
+     * 
+     * @return JForg_Dodb_Collection
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function removeAll()
     {
         $this->_data = array();        
     }
