@@ -54,8 +54,9 @@ class JForg_Couchdb_Document_Design extends JForg_Dodb_Document
 
         if ( $methodPrefix === 'view' )
         {
-            $valueName = substr($name,3);
-            return $this->_callView(strtolower($valueName{0}), $arguments[0]);
+            $valueName = substr($name,4);
+            $valueName{0} = strtolower($valueName{0});
+            return $this->_callView($valueName, $arguments[0]);
         } else {
             parent::__call($name, $arguments);
         }
@@ -66,7 +67,7 @@ class JForg_Couchdb_Document_Design extends JForg_Dodb_Document
     /**
      * Locks sheme to a standart design document sheme after calling paraent
      * 
-     * @return TODO
+     * @return void
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
     protected function _postConfig()
@@ -81,24 +82,24 @@ class JForg_Couchdb_Document_Design extends JForg_Dodb_Document
      * @param string $viewName 
      * @param array $params   
      * 
-     * @return TODO
+     * @return JForg_Dodb_Collection
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
     protected function _callView($viewName, array $params = null)
     {
         $uri = $this->_dodb->getUri();
-        $uri->path[] = $this->_documentId.'/_view'.$viewName;
+        $uri->setPath($uri->getPath().'/'.$this->_documentId.'/_view/'.$viewName);
         foreach($params as $key => $value )
         {
             $uri->query[$key] = $value;
         }
 
-        $result = $this->_dodb->query($uri);
+        $data = $this->_dodb->query($uri);
 
         $collection = Solar::factory('JForg_Dodb_Collection');
         foreach( $data['rows'] as $row )
         {
-            $doc = Solar::factory('JForg_Dodb_Document')->populate($row['value']);
+            $doc = $this->_dodb->arrayToDocument($row['value']);
             $record = Solar::factory('JForg_Dodb_Record')->populate($key, $doc);
             $collection->append($record);
         }
