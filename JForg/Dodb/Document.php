@@ -268,6 +268,12 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
      */
     public function __unset($name)
     {
+        if ( $this->_final )
+            throw $this->_exception('ERR_DOC_IS_FINAL');
+
+        if ( array_key_exists($name, $this->_sheme) )
+            throw $this->_exception('ERR_PROP_PART_OF_DOC_SHEME', array('property' => $name, 'sheme' => $this->_sheme));
+
         unset($this->_data[$name]);
         $this->_is_dirty = true;
     }
@@ -290,8 +296,22 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
             $valueName = strtolower(substr($name,3));
             return $this->_data[$valueName];
         } elseif ($methodPrefix === 'set') {
-            $valueName = strtolower(substr($name,3));
-            $this->_data[$valueName] = $arguments[0];
+            $property = strtolower(substr($name,3));
+
+            if ( !$this->_equalsSheme($property, $arguments[0])  && $this->final)
+            {
+                throw $this->_exception('ERR_PROP_NOT_IN_SHEME_AND_DOC_FINAL',
+                        array('property' => $property, 'sheme' =>
+                            $this->_sheme));
+            } elseif ( !array_key_exists($property, $this->fetchPropetiesNames()) 
+                    && $this->_final) 
+            { 
+                throw $this->_exception('ERR_DOC_FINAL', 
+                            array('property' => $property)); 
+            }
+
+
+            $this->_data[$property] = $arguments[0];
             return $this;
         } else {
             throw new Solar_Exception_MethodNotImplemented();
@@ -472,6 +492,48 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
     public function updateSpecialProperty($name, $value)
     {
         return $this->addSpecialProperty($name, $value);
+    }
+
+    /**
+     * Checks if the data consists with the sheme
+     * 
+     * @param array $data 
+     * 
+     * @return boolean
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    protected function _checkSheme($data)
+    {
+        foreach($data as $key => $val)
+        {
+            if ( !$this->_equalsSheme($key, $val) )
+             return false;
+        }
+        return true;
+    }
+
+
+    /**
+     * Checks if given property name is a part of the sheme and if value has
+     * right type
+     * 
+     * @param scalar $name The property name
+     * @param mixed $value The value 
+     * 
+     * @return boolean
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    protected function _equalsSheme($name, $value)
+    {
+        if ($this->_sheme == null )
+            return true;
+        if ( array_key_exists($name, $this->_sheme) && 
+                (gettype($val) === $this->_sheme[$key] || $this->_sheme === 'mixed') )
+        {
+            return true;
+        }
+
+        return false;
     }
 
 }
