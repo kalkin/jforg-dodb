@@ -537,7 +537,9 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
         foreach($data as $key => $val)
         {
             if ( !$this->_equalsSheme($key, $val) )
-             return false;
+            {
+                return false;
+            }
         }
         return true;
     }
@@ -557,11 +559,15 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
     {
         if ($this->_sheme == null )
             return true;
+
         if ( array_key_exists($name, $this->_sheme) && 
-                (gettype($val) === $this->_sheme[$key] || $this->_sheme === 'mixed') )
+                (gettype($value) === $this->_sheme[$name] || $this->_sheme === 'mixed') )
         {
             return true;
-        }
+        } 
+
+        if ( !array_key_exists($name, $this->_sheme) && !$this->_final )
+            return true;
 
         return false;
     }
