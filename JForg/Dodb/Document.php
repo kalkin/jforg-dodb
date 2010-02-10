@@ -180,6 +180,8 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
      */
     public function populate(array $values)
     {
+        if ( !isset($values['data']) )
+                return null;
         if ( $this->_sheme != null )
         {
             if (!$this->_checkSheme($values['data']))
