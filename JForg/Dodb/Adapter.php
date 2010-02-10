@@ -200,4 +200,25 @@ abstract class JForg_Dodb_Adapter extends Solar_Base
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
     public abstract function getUuid($count = 1);
+
+    /**
+     * Generates from a database specific data a JForg_Dodb_Document
+     * 
+     * @param array $data The database specific data
+     * 
+     * @return JForg_Dodb_Document
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public abstract function arrayToDocument(array $data);
+
+    /**
+     * Generates from a database specific data set a collection containing
+     * JForg_Dodb_Records widh JForg_Dodb_Document
+     * 
+     * @param array $data The database specific data
+     * 
+     * @return JForg_Dodb_Collection
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public abstract function arrayToCollection(array $data);
 }
