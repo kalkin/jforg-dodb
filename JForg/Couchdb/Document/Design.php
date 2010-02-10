@@ -62,6 +62,23 @@ class JForg_Couchdb_Document_Design extends JForg_Dodb_Document
 
     }
 
+
+    /**
+     * Locks sheme to a standart design document sheme after calling paraent
+     * 
+     * @return TODO
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    protected function _postConfig()
+    {
+        parent::_postConfig();
+        $this->_sheme = array('language' => 'string',
+                              'views'    => 'array',
+                              'shows'    => 'array',
+                              'lists'    => 'array',
+                            );
+    }
+
     /**
      * Calls a view with given params
      * 
