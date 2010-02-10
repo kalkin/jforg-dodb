@@ -9,6 +9,12 @@ About
 This is a library for Solarphp (http://solarphp.com/) framework. It's designed
 for communicatino with Couchdb (http://couchdb.apache.org/)
 
+Branch Info
+-----------------
+This branch is created to experiment with couchdb specific stuff. For
+example i intend to code a designe document for working with views and
+ect..
+
 Authors
 -------
 Daniel Gultsch
