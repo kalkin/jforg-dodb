@@ -133,7 +133,8 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
 
     /**
      * Populates the document with data. Note: It won't create a new document
-     * it will only overwrite the properties values of this document.
+     * it will only overwrite the properties values of this document. If no id
+     * is given the JForg_Dodb_Document let the adapter generate one
      *
      * A values array should look something like this:
      *
@@ -159,8 +160,11 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
         }
 
         $this->_data = $values['data'];
+
         if ( isset($values['id']) )
             $this->_documentId = $values['id'];
+        else
+            $this->_documentId = $this->_dodb->getUuid();
 
         if ( isset($values['special'] ) )
             $this->_special = $values['special'];
