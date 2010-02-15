@@ -378,7 +378,7 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
 	public function __set($name, $value)
     {
         $setterMethod = 'set'.ucfirst($name);
-        return $this->$setterMethod($name, $value);
+        return $this->$setterMethod($value);
     }
 
 	/**
@@ -467,7 +467,7 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
     }
 
     /**
-     * Returns a value of a special propertu
+     * Returns a value of a special property
      * 
      * @param mixed $name Property name
      * 
