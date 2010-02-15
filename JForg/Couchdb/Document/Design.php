@@ -82,7 +82,7 @@ class JForg_Couchdb_Document_Design extends JForg_Dodb_Document
      * @param string $viewName 
      * @param array $params   
      * 
-     * @return JForg_Dodb_Collection
+     * @return JForg_Dodb_Collection|JForg_Dodb_Array
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
     protected function _callView($viewName, array $params = null)
@@ -96,30 +96,32 @@ class JForg_Couchdb_Document_Design extends JForg_Dodb_Document
 
         $data = $this->_dodb->query($uri);
 
-        $collection = Solar::factory('JForg_Dodb_Collection');
-
+        // Is the result empty?
         if ( empty($data['rows']) )
-            return $collection;
-
-
-        foreach( $data['rows'] as $row )
         {
-            if ( !is_array($row['value']) )
+            return Solar::factory('JForg_Dodb_Collection');
+        } elseif (isset($data['rows'][0]['value']) &&    // Contains the result
+                is_array($data['rows'][0]['value']) &&   //documents? If so then
+                isset($data['rows'][0]['value']['_id'])) // return a JForg_Dodb_Collection
+        {
+            $collection = Solar::factory('JForg_Dodb_Collection');
+            foreach( $data['rows'] as $row )
             {
-                $record = Solar::factory('JForg_Couchdb_Record')->populate($key, $row['value']);
-            } elseif ( isset($row['value']['_id']) )
-            {
-                $data = $this->_dodb->arrayToDocument($row['value']);
-                $record = Solar::factory('JForg_Dodb_Record')->populate($key, $data);
-            } else {
-                $data = Solar::factory('JForg_Dodb_Array')->populate($row['value']);
-                $record = Solar::factory('JForg_Couchdb_Record')->populate($key, $data);
+                $doc = $this->_dodb->arrayToDocument($row['value']);
+                $record = Solar::factory('JForg_Dodb_Record')->populate($row['key'], $doc);
+                $collection->append($record);
             }
 
-            $collection->append($record);
+            return $collection;
+        } else {
+            // The document contains only some bunch of data so we generate an JForg_Dodb_Array
+            $tmp = array();
+            foreach( $data['rows'] as $row )
+            {
+                $tmp[] = $row;
+            }
+            return Solar::factory('JForg_Dodb_Array')->populate($tmp);
         }
-        
-        return $collection;
     }
 
 }
