@@ -68,7 +68,7 @@ class JForg_Dodb_Array extends Solar_Base implements Iterator, Countable
      * 
      * @param array $data Array which is used to populate JForg_Dodb_Array
      * 
-     * @return void
+     * @return JForg_Dodb_Array
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
     public function populate(array $data)
@@ -145,5 +145,7 @@ class JForg_Dodb_Array extends Solar_Base implements Iterator, Countable
     {
         return count($this->_data);
     }
+
+
 
 }
