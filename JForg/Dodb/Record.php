@@ -39,12 +39,12 @@ class JForg_Dodb_Record extends Solar_Base {
 
 
     /**
-     * Contains some data
+     * Contains the document
      * 
-     * @var mixed|JForg_Dodb_Array  Defaults to null. 
+     * @var JForg_Dodb_Document  Defaults to null. 
      * @since 2010-02-09
      */
-    protected $_entry = null;
+    protected $_document = null;
 
 
     /**
@@ -56,28 +56,27 @@ class JForg_Dodb_Record extends Solar_Base {
     public $_key = null;
 
     /**
-     * Populates the record with some data. This function can only be called
+     * Populates the record with a document. This function can only be called
      * one time.
      * 
      * @param mixed $key The key for corresponding JForg_Dodb_Document
-     * @param JForg_Dodb_Document $data Some data could be a mixed value or a JForg_Dodb_Array instance i.g an JForg_Dodb_Array
+     * @param JForg_Dodb_Document $doc Add the doc to a record
      * 
      * @return JForg_Dodb_Record
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
-    public function populate($key, $data )
+    public function populate($key, JForg_Dodb_Document $doc )
     {
-        if ( $this->_entry == null )
+        if ( $this->_document == null )
         {
-            $this->_entry   = $data;
-            $this->_key     = $key;
+            $this->_document = $doc;
+            $this->_key      = $key;
         }
         return $this;
     }
     
     /**
-     * If $record->entry is called than the document or an JForg_Dodb_Array is
-     * returned;
+     * If $record->document is called than the document is returned;
      * 
      * @param string $name The name of var to get
      * 
@@ -86,8 +85,8 @@ class JForg_Dodb_Record extends Solar_Base {
      */
     public function __get($name)
     {
-        if ( $name === 'entry')
-            return $this->_entry;
+        if ( $name === 'document' )
+            return $this->_document;
     }
 
     /**
