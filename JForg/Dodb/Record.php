@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Contains an Documents and keys used to find him.
+ * Contains a document and keys used to find it.
  * 
  * @author    Bahtiar Gadimov <bahtiar@gadimov.de>
  * @package   JForg_Dodb
@@ -53,7 +53,7 @@ class JForg_Dodb_Record extends Solar_Base {
      * @var mixed  Defaults to null. 
      * @since 2010-02-09
      */
-    public $_key = null;
+    protected $_key = null;
 
     /**
      * Populates the record with a document. This function can only be called
