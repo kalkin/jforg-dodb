@@ -66,7 +66,7 @@ class JForg_Dodb_Collection extends JForg_Dodb_Array
     }
 
     /**
-     * Emnties the Collection
+     * Empties the Collection
      * 
      * @return JForg_Dodb_Collection
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
