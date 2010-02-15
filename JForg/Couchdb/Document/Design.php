@@ -40,7 +40,7 @@ class JForg_Couchdb_Document_Design extends JForg_Dodb_Document
 
     /**
      * Magic call implements "view...()" for executing the views
-     * Calls parent:__calL();
+     * Calls parent:__call();
      *
      * @param mixed $name   The name of the called function 
      * @param array $arguments The function arguments
@@ -101,10 +101,20 @@ class JForg_Couchdb_Document_Design extends JForg_Dodb_Document
         if ( empty($data['rows']) )
             return $collection;
 
+
         foreach( $data['rows'] as $row )
         {
-            $doc = $this->_dodb->arrayToDocument($row['value']);
-            $record = Solar::factory('JForg_Dodb_Record')->populate($key, $doc);
+            if ( !is_array($row['value']) )
+            {
+                $data = $row['value'];
+            } elseif ( isset($row['value']['_id']) )
+            {
+                $data = $this->_dodb->arrayToDocument($row['value']);
+            } else {
+                $data = Solar::factory('JForg_Dodb_Array')->populate($row['value']);
+            }
+
+            $record = Solar::factory('JForg_Dodb_Record')->populate($key, $data);
             $collection->append($record);
         }
         
