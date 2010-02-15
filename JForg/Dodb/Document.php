@@ -346,7 +346,7 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
             $this->_data[$property] = $arguments[0];
             return $this;
         } else {
-            throw new Solar_Exception_MethodNotImplemented();
+            throw $this->_exception('ERR_METHOD_NOT_IMPLEMENTED', array('method' => $name, 'params' => $arguments));
         }
     }
 
