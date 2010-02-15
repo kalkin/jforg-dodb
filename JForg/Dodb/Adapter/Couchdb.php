@@ -158,8 +158,7 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
 	{
         foreach ($collection as $record )
         {
-            if ( $record->entry instanceof JForg_Dodb_Document )
-                $record->entry->save();
+            $record->document->save();
         }
 	}
 
@@ -188,8 +187,7 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
 	{
         foreach ($collection as $record )
         {
-            if ( $record->entry instanceof JForg_Dodb_Document )
-                $record->entry->reload();
+            $record->document->reload();
         }
 	}
 
