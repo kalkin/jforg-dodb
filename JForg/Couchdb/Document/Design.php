@@ -97,6 +97,10 @@ class JForg_Couchdb_Document_Design extends JForg_Dodb_Document
         $data = $this->_dodb->query($uri);
 
         $collection = Solar::factory('JForg_Dodb_Collection');
+
+        if ( empty($data['rows']) )
+            return $collection;
+
         foreach( $data['rows'] as $row )
         {
             $doc = $this->_dodb->arrayToDocument($row['value']);
