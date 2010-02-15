@@ -114,13 +114,8 @@ class JForg_Couchdb_Document_Design extends JForg_Dodb_Document
 
             return $collection;
         } else {
-            // The document contains only some bunch of data so we generate an JForg_Dodb_Array
-            $tmp = array();
-            foreach( $data['rows'] as $row )
-            {
-                $tmp[] = $row;
-            }
-            return Solar::factory('JForg_Dodb_Array')->populate($tmp);
+            // The document contains only some bunch of data so we just return it as an array
+            return Solar::factory('JForg_Dodb_Array')->populate($data['rows']);
         }
     }
 
