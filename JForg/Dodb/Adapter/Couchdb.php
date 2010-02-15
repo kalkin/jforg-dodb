@@ -314,8 +314,12 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
             $doc = Solar::factory('JForg_Dodb_Document');
         }
         
-        $tmp['id'] = $data['_id'];
-        unset($data['_id']);
+        if ( isset($data['_id']) )
+        {
+            $tmp['id'] = $data['_id'];
+            unset($data['_id']);
+        }
+
         foreach ( $data as $key => $value )
         {
             if ( in_array($key, $this->_special_propertys, true) )
