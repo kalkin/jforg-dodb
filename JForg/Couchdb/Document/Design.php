@@ -106,15 +106,16 @@ class JForg_Couchdb_Document_Design extends JForg_Dodb_Document
         {
             if ( !is_array($row['value']) )
             {
-                $data = $row['value'];
+                $record = Solar::factory('JForg_Couchdb_Record')->populate($key, $row['value']);
             } elseif ( isset($row['value']['_id']) )
             {
                 $data = $this->_dodb->arrayToDocument($row['value']);
+                $record = Solar::factory('JForg_Dodb_Record')->populate($key, $data);
             } else {
                 $data = Solar::factory('JForg_Dodb_Array')->populate($row['value']);
+                $record = Solar::factory('JForg_Couchdb_Record')->populate($key, $data);
             }
 
-            $record = Solar::factory('JForg_Dodb_Record')->populate($key, $data);
             $collection->append($record);
         }
         
