@@ -10,6 +10,12 @@ This is a library for Solarphp (http://solarphp.com/) framework. It's designed
 to interact with document oriented databases. The first and so far only
 implementation which i'm working on is Couchdb (http://couchdb.apache.org/)
 
+RELEASE
+-------
+The current release is pre-alpha-1.1 . It's should be stable, but it's
+work in progress. So some things might change. I hope to release a stable
+beta in a few weeks.
+
 Requirements
 ------------
 - Your php version should be compiled with --with-curlwrappers. If you
@@ -20,6 +26,8 @@ Requirements
 Bugs
 ----
 If you find a bug, write a bugreport to mail@kalkin.de .
+
+
 
 Authors
 -------
