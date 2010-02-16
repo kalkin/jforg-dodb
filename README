@@ -2,22 +2,27 @@ README
 ======
 :Author:    Bahtiar `kalkin` Gadimov
 :Email:     mail@kalkin.de
-:Date:      2010-01-26
+:Date:      2010-02-16
 
 About
 -----
 This is a library for Solarphp (http://solarphp.com/) framework. It's designed
-for communicatino with Couchdb (http://couchdb.apache.org/)
+to interact with document oriented databases. The first and so far only
+implementation which i'm working on is Couchdb (http://couchdb.apache.org/)
 
-Branch Info
------------------
-This branch is created to experiment with couchdb specific stuff. For
-example i intend to code a designe document for working with views and
-ect..
+Requirements
+------------
+- Your php version should be compiled with --with-curlwrappers. If you
+  running on a Debian/Ubuntu, this howto can help you
+  http://tinyurl.com/ylmd4hn . 
+- You need to use the Stream adapter for Solar_Http_Request.
+
+Bugs
+----
+If you find some write to mail@kalkin.de a bugreport.
 
 Authors
 -------
-Daniel Gultsch
 Bahtiar Gadimov
 
 // vim: ft=asciidoc tw=74
