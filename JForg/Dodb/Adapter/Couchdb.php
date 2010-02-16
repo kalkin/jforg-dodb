@@ -411,7 +411,7 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
             
         if ( is_scalar($data) )
         {
-            $uri->path[] = $data;
+            $uri->setPath($uri->getPath().'/'.$data);
         }
         else 
             throw Solar::exception($this, 'ERR_NO_SUCH_DOCUMENT', 'ERR_NO_SUCH_DOCUMENT',  array('id' => $data));
