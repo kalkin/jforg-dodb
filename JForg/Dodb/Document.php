@@ -529,7 +529,7 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
     /**
      * Checks if the data consists with the sheme
      * 
-     * @param array $data 
+     * @param array $data The data to check
      * 
      * @return boolean
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
