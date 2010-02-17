@@ -540,7 +540,7 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
         {
             if ( !$this->_equalsSheme($key, $val) )
             {
-                throw $this->_exception('NOT_EQUATES_SHEME',
+                throw $this->_exception('ERR_NOT_EQUATES_SHEME',
                         array('wrong_property' => array($key=>$value)));
                 return false;
             }
