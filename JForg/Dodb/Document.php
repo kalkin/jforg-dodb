@@ -184,8 +184,7 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
                 return null;
         if ( $this->_sheme != null )
         {
-            if (!$this->_checkSheme($values['data']))
-                throw $this->_exception('NOT_EQUATES_SHEME');
+            $this->_checkSheme($values['data']);
         }
 
         foreach($values['data'] as $key => $value)
@@ -326,7 +325,7 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
         $methodPrefix = substr($name,0,3);
         if ($methodPrefix === 'get') {
             $valueName = strtolower(substr($name,3));
-            if ( isset($this->_data['$valueName']) )
+            if ( isset($this->_data[$valueName]) )
                 return $this->_data[$valueName];
             else 
                 return null;
@@ -534,10 +533,15 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
      */
     protected function _checkSheme($data)
     {
+        if ($this->_sheme == null )
+            return true;
+
         foreach($data as $key => $val)
         {
             if ( !$this->_equalsSheme($key, $val) )
             {
+                throw $this->_exception('NOT_EQUATES_SHEME',
+                        array('wrong_property' => array($key=>$value)));
                 return false;
             }
         }
@@ -565,9 +569,6 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
         {
             return true;
         } 
-
-        if ( !array_key_exists($name, $this->_sheme) && !$this->_final )
-            return true;
 
         return false;
     }
