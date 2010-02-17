@@ -326,7 +326,10 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
         $methodPrefix = substr($name,0,3);
         if ($methodPrefix === 'get') {
             $valueName = strtolower(substr($name,3));
-            return $this->_data[$valueName];
+            if ( isset($this->_data['$valueName']) )
+                return $this->_data[$valueName];
+            else 
+                return null;
         } elseif ($methodPrefix === 'set') {
             $property = strtolower(substr($name,3));
 
@@ -335,11 +338,6 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
                 throw $this->_exception('ERR_PROP_NOT_IN_SHEME_AND_DOC_FINAL',
                         array('property' => $property, 'sheme' =>
                             $this->_sheme));
-            } elseif ( !array_key_exists($property, $this->fetchPropetiesNames()) 
-                    && $this->_final) 
-            { 
-                throw $this->_exception('ERR_DOC_FINAL', 
-                            array('property' => $property)); 
             }
 
 
