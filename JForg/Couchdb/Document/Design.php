@@ -73,7 +73,6 @@ class JForg_Couchdb_Document_Design extends JForg_Dodb_Document
     protected function _postConfig()
     {
         parent::_postConfig();
-        $this->_sheme = array('language' => 'string');
     }
 
     /**
