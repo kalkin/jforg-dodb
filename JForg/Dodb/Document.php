@@ -573,4 +573,36 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
         return false;
     }
 
+    /**
+     * Returns the value at specified offset. This method is executed when
+     * checking if offset is empty(). The method calls a get$Offset() function.
+     * 
+     * @param mixed $offset The offset to retrieve. 
+     * 
+     * @return mixed
+     * @see ArrayAccess
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function offsetGet($offset)
+    {
+        $method = 'get'.ucfirst($offset);
+        return $this->$method();
+    }
+
+    /**
+     * Assigns a value to the specified offset. The method calls a set$Offset() function.
+     * 
+     * @param mixed $offset The offset to assign the value to.
+     * @param mixed $value  The value to set. 
+     * 
+     * @return void
+     * @see ArrayAccess
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function offsetSet($offset, $value)
+    {
+        $method = 'get'.ucfirst($offset);
+        return $this->$method($value);
+    }
+
 }
