@@ -414,7 +414,7 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
             $uri->setPath($uri->getPath().'/'.$data);
         }
         else 
-            throw Solar::exception($this, 'ERR_NO_SUCH_DOCUMENT', 'ERR_NO_SUCH_DOCUMENT',  array('id' => $data));
+            throw $this->_exception('ERR_NO_SUCH_DOCUMENT', array('id' => $data));
 
         return  $this->query($uri, $request);
     }
@@ -439,7 +439,6 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
 
         $uri->path[] = $id;
         $uri->query = array('rev' => $rev);
-        print($uri->get(true)."\n\n");
         return $this->query($uri, $request);
     }
 
