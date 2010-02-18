@@ -34,7 +34,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-class JForg_Dodb_Array extends Solar_Base implements Iterator, Countable
+class JForg_Dodb_Array extends Solar_Base implements Iterator, Countable, ArrayAccess
 {
 
 	/**
@@ -146,6 +146,62 @@ class JForg_Dodb_Array extends Solar_Base implements Iterator, Countable
         return count($this->_data);
     }
 
+    /**
+     * Whether a offset exists
+     * 
+     * @param mixed $offset An offset to check for. 
+     * 
+     * @return boolean
+     * @see ArrayAccess
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->_data[$offset]);
+    }
 
+    /**
+     * Returns the value at specified offset. This method is executed when
+     * checking if offset is empty(). 
+     * 
+     * @param mixed $offset The offset to retrieve. 
+     * 
+     * @return mixed
+     * @see ArrayAccess
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function offsetGet($offset)
+    {
+        return $this->_data[$offset];
+    }
+
+    /**
+     * Assigns a value to the specified offset. 
+     * 
+     * @param mixed $offset The offset to assign the value to.
+     * @param mixed $value  The value to set. 
+     * 
+     * @return void
+     * @see ArrayAccess
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->_data[$offset] = $value;
+    }
+
+    /**
+     * Unsets an offset.
+     * 
+     * @param object $offset The offset to unset
+     * 
+     * @return void
+     * @see ArrayAccess
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     */
+    public function offsetUnset($offset)
+    {
+        unset($this->_data[$offset]);
+    }
 
 }
