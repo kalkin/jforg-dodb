@@ -122,13 +122,6 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
 	protected $_dodb = null;
 
     /**
-     * Post-construction tasks to complete object construction.
-     * 
-     * @return void
-     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
-     */
-
-    /**
      * Checks if the registered JForg_Dodb exists, sets some vars
      * 
      * @return void
