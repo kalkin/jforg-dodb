@@ -70,7 +70,7 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      */
     protected $_dbName = null;
 
-    const SPECIAL_ATTACHMENT        = '_attachment';
+    const SPECIAL_ATTACHMENT        = '_attachments';
     const SPECIAL_CONFLICTS         = '_conflicts';
     const SPECIAL_DELETED_CONFLICTS = '_deleted_conflicts';
     const SPECIAL_DELETED           = '_deleted';
