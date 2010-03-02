@@ -56,7 +56,10 @@ class JForg_Couchdb_Document_Design extends JForg_Dodb_Document
         {
             $valueName = substr($name,4);
             $valueName{0} = strtolower($valueName{0});
-            return $this->_callView($valueName, $arguments[0]);
+            if (isset( $arguments[0] ) )
+                return $this->_callView($valueName, $arguments[0]);
+            else
+                return $this->_callView($valueName);
         } else {
             parent::__call($name, $arguments);
         }
@@ -88,9 +91,12 @@ class JForg_Couchdb_Document_Design extends JForg_Dodb_Document
     {
         $uri = $this->_dodb->getUri();
         $uri->setPath($uri->getPath().'/'.$this->_documentId.'/_view/'.$viewName);
-        foreach($params as $key => $value )
-        {
-            $uri->query[$key] = $value;
+
+        if ( !is_null($params) ) {
+            foreach($params as $key => $value )
+            {
+                $uri->query[$key] = $value;
+            }
         }
 
         $data = $this->_dodb->query($uri);
