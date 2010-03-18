@@ -2,7 +2,7 @@ README
 ======
 :Author:    Bahtiar `kalkin` Gadimov
 :Email:     mail@kalkin.de
-:Date:      2010-02-16
+:Date:      2010-03-18
 
 About
 -----
@@ -13,8 +13,8 @@ implementation which i'm working on is Couchdb (http://couchdb.apache.org/)
 RELEASE
 -------
 The current release is pre-alpha-1.1 . It's should be stable, but it's
-work in progress. So some things might change. I hope to release a stable
-beta in a few weeks.
+work in progress. So some things will change. The library is in a rewrite
+process. So things _will_ change.
 
 Requirements
 ------------
