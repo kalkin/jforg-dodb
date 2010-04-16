@@ -112,6 +112,11 @@ class JForg_Couchdb extends Solar_Base
 
     const ALL_DOCS  = '_all_docs';
     const UUIDS      = '_uuids';
+    
+    public $specialPropertiesNames = array ( self::SPECIAL_ATTACHMENT,
+            self::SPECIAL_CONFLICTS, self:: SPECIAL_DELETED_CONFLICTS, 
+            self::SPECIAL_DELETED, self::SPECIAL_ID, self:: SPECIAL_REV_INFO,
+            self::SPECIAL_REVISIONS, self:: SPECIAL_REV);
 
     /**
      * Returns if couchdb operates type safe.
@@ -135,7 +140,7 @@ class JForg_Couchdb extends Solar_Base
      */
     public function fetch($id)
 	{
-        return $this->arrayToDocument($this->_fetch($id));
+        return $this->arrayToDocument($this->fetchRaw($id));
 	}
 
     /**
@@ -357,7 +362,7 @@ class JForg_Couchdb extends Solar_Base
 
         foreach ( $data as $key => $value )
         {
-            if ( in_array($key, $this->_special_propertys, true) )
+            if ( in_array($key, $this->specialPropertyieNames, true) )
             {
                 $tmp['special'][$key] = $value;
             } else {
@@ -499,7 +504,7 @@ class JForg_Couchdb extends Solar_Base
      * @throws JForg_Dodb_Adapter_Exception_NoSuchDocument
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
-    protected function _fetch($data)
+    public function fetchRaw($data)
     {
         $request = null; 
         $uri = $this->getUri();
