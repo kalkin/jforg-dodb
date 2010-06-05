@@ -533,7 +533,7 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
 
         foreach($data as $key => $val)
         {
-            if ( !$this->_equalsSheme($key, $val) )
+            if ( $val != null && !$this->_equalsSheme($key, $val) )
             {
                 throw $this->_exception('ERR_NOT_EQUATES_SHEME',
                         array('wrong_property' => array($key=>$val),
