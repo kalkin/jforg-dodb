@@ -7,14 +7,12 @@ README
 About
 -----
 This is a library for Solarphp (http://solarphp.com/) framework. It's designed
-to interact with document oriented databases. The first and so far only
-implementation which i'm working on is Couchdb (http://couchdb.apache.org/)
+to interact with Couchdb.(http://couchdb.apache.org/)
 
 RELEASE
 -------
-The current release is pre-alpha-1.1 . It's should be stable, but it's
-work in progress. So some things will change. The library is in a rewrite
-process. So things _will_ change.
+This is a rewrite. Which isn't stable at all and is work in progress. See
+master branch for working stable implementation.
 
 Requirements
 ------------
