@@ -3,7 +3,7 @@
  * Is thrown when default_doc doesn't exists
  * 
  * @author    Bahtiar `kalkin-` Gadimov <bahtiar@gadimov.de>
- * @package   Xuj_Couchdb
+ * @package   JForg_Couchdb
  * @copyright (c) 2010 Bahtiar Gadimov
  * @since     2010-10-16 
  *
@@ -34,7 +34,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-class Xuy_Couchdb_NoSuchDefaultDoc extends Solar_Exception
+class JForg_Couchdb_NoSuchDefaultDoc extends Solar_Exception
 {
     
 }

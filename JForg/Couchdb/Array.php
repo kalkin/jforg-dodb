@@ -3,7 +3,7 @@
  * An solar like class which represents an Array
  * 
  * @author    Bahtiar Gadimov <bahtiar@gadimov.de>
- * @package   Xuj_Couchdb_Array
+ * @package   JForg_Couchdb_Array
  * @copyright (c) 2010 Bahtiar Gadimov
  * @since     2010-02-08
  *
@@ -34,7 +34,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-class Xuj_Couchdb_Array extends Solar_Base implements Iterator, Countable, ArrayAccess
+class JForg_Couchdb_Array extends Solar_Base implements Iterator, Countable, ArrayAccess
 {
 
 	/**
@@ -48,7 +48,7 @@ class Xuj_Couchdb_Array extends Solar_Base implements Iterator, Countable, Array
     /**
      * Constructor
      * 
-     * @param array $conf Array value datais used to populate Xuj_Couchdb_Array
+     * @param array $conf Array value datais used to populate JForg_Couchdb_Array
      * 
      * @return void
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>

@@ -3,7 +3,7 @@
 /**
  * This is the couchdb low level communication class
  * 
- * @package   Xuj_Couchdb
+ * @package   JForg_Couchdb
  * @author    Bahtiar `kalkin-` Gadimov <bahtiar@gadimov.de>
  * @copyright (c) 2010 Bahtiar Gadimov
  * @since     2010-10-16
@@ -36,7 +36,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
  
-class Xuj_Couchdb extends Solar_Base
+class JForg_Couchdb extends Solar_Base
 {
 
     /**
@@ -63,7 +63,7 @@ class Xuj_Couchdb extends Solar_Base
      * @var array
      * 
      */
-    protected $_Xuj_Couchdb_Adapter = array (
+    protected $_JForg_Couchdb_Adapter = array (
        'dbname' => null,
        'default_doc'   => 'JForg_Dodb_Document',
 	   'encrypted' => false,
@@ -122,11 +122,11 @@ class Xuj_Couchdb extends Solar_Base
             self::SPECIAL_REVISIONS, self:: SPECIAL_REV);
 
     /**
-     * Generates from a database specific output a Xuj_Couchdb_Document
+     * Generates from a database specific output a JForg_Couchdb_Document
      * 
      * @param array $data The database specific data
      * 
-     * @return Xuj_Couchdb_Document
+     * @return JForg_Couchdb_Document
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
     public function arrayToDocument(array $data){}
@@ -134,31 +134,31 @@ class Xuj_Couchdb extends Solar_Base
     /**
      * Deletes a document from the database
      * 
-     * @param Xuj_Couchdb_Document $doc The document to delete
+     * @param JForg_Couchdb_Document $doc The document to delete
      * 
      * @return void
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
-    public function delete(Xuj_Couchdb_Document $doc)
+    public function delete(JForg_Couchdb_Document $doc)
 	{}
 
     /**
      * Fetchs a document by id and returns it as an instance of
-     * Xuj_Couchdb_Document
+     * JForg_Couchdb_Document
      * 
      * @param scalar $id The document id
      * 
-     * @return Xuj_Couchdb_Document
+     * @return JForg_Couchdb_Document
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
     public function fetch($id){}
 
     /**
      * Returns a prepared Solar_Http_Request object for interaction with the
-     * database directly via Xuy_Couchdb::query()
+     * database directly via JForg_Couchdb::query()
      * 
-     * @see Xuy_Couchdb::query()
-     * @see Xuy_Couchdb::getUri();
+     * @see JForg_Couchdb::query()
+     * @see JForg_Couchdb::getUri();
      * @return Solar_Http_Request
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
@@ -178,10 +178,10 @@ class Xuj_Couchdb extends Solar_Base
 
     /**
      * Returns a preoared Solar_Uri object for interaction with the database
-     * directly via Xuj_Couchdb::query()
+     * directly via JForg_Couchdb::query()
      * 
-     * @see Xuj_Couchdb::query()
-     * @see Xuj_Couchdb::getHttpRequest()
+     * @see JForg_Couchdb::query()
+     * @see JForg_Couchdb::getHttpRequest()
      * @return Solar_Uri
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
@@ -255,13 +255,13 @@ class Xuj_Couchdb extends Solar_Base
     /**
      * Saves a document
      * 
-     * @param Xuj_Couchdb_Document_Saveable $doc An object which implements
-     *          Xuj_Couchdb_Document_Saveable
+     * @param JForg_Couchdb_Document_Saveable $doc An object which implements
+     *          JForg_Couchdb_Document_Saveable
      * 
-     * @return Xuj_Couchdb_Document
+     * @return JForg_Couchdb_Document
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
-    public function save(Xuj_Couchdb_Document_Saveable $doc)
+    public function save(JForg_Couchdb_Document_Saveable $doc)
     {}
 
     /**

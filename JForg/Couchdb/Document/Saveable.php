@@ -1,5 +1,5 @@
 <?php
-interface Xuj_Couchdb_Document_Saveable 
+interface JForg_Couchdb_Document_Saveable 
 {
     public function toArray();
 }
