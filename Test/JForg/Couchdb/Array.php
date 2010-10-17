@@ -4,7 +4,7 @@
  * Concrete class test.
  * 
  */
-class Test_Xuj_Couchdb_Array extends Solar_Test {
+class Test_JForg_Couchdb_Array extends Solar_Test {
     
     /**
      * 
@@ -13,7 +13,7 @@ class Test_Xuj_Couchdb_Array extends Solar_Test {
      * @var array
      * 
      */
-    protected $_Test_Xuj_Couchdb_Array = array(
+    protected $_Test_JForg_Couchdb_Array = array(
     );
 
     protected $_instance;
@@ -28,7 +28,7 @@ class Test_Xuj_Couchdb_Array extends Solar_Test {
     public function test__construct()
     {
         $actual = $this->_instance;
-        $expect = 'Xuj_Couchdb_Array';
+        $expect = 'JForg_Couchdb_Array';
         $this->assertInstance($actual, $expect);
     }
     
@@ -247,7 +247,7 @@ class Test_Xuj_Couchdb_Array extends Solar_Test {
 
     public function preTest() 
     {
-        $this->_instance = Solar::factory('Xuj_Couchdb_Array', 
+        $this->_instance = Solar::factory('JForg_Couchdb_Array', 
                 array('data' => array(
                     "_id"=> "fff9bc300e5fcf291dcc80cb185ce83f",
                     "_rev"=> "1-8c8bbeab9c2c416b9e4b4d8bbb9bd137",
@@ -256,6 +256,6 @@ class Test_Xuj_Couchdb_Array extends Solar_Test {
                     "pseudo"=> "sexmonster",
                     "ammount"=> -1,
                     )));
-        $this->_nullInstance = Solar::factory('Xuj_Couchdb_Array');
+        $this->_nullInstance = Solar::factory('JForg_Couchdb_Array');
     }
 }
