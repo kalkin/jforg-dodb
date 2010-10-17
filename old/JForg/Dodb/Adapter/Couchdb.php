@@ -103,8 +103,18 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      */
     public function fetch($id)
 	{
-		$data = $this->_fetch($id);
-        return $this->arrayToDocument($data);
+        if ( substr($id, 0,8) === '_design/')
+        {
+            if ( !Solar_Registry::exists($id) )
+            {
+                $data = $this->_fetch($id);
+                Solar_Registry::set($id, $this->arrayToDocument($data));
+            }
+            return Solar_Registry::get($id);
+        } else {
+            $data = $this->_fetch($id);
+            return $this->arrayToDocument($data);
+        }
 	}
 
     /**
