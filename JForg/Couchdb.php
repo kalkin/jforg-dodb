@@ -116,7 +116,7 @@ class JForg_Couchdb extends Solar_Base
      *
      * @var array Default contains all SPECIAL_* consts
      */
-    protected $_special_propertys = array ( self::SPECIAL_ATTACHMENT,
+    public $specialPropertys = array ( self::SPECIAL_ATTACHMENT,
             self::SPECIAL_CONFLICTS, self:: SPECIAL_DELETED_CONFLICTS, 
             self::SPECIAL_DELETED, self::SPECIAL_ID, self:: SPECIAL_REV_INFO,
             self::SPECIAL_REVISIONS, self:: SPECIAL_REV);
