@@ -26,6 +26,37 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
         $actual = Solar::factory('JForg_Couchdb_Document');
         $expect = 'JForg_Couchdb_Document';
         $this->assertInstance($actual, $expect);
+
+        try {
+            Solar::factory('JForg_Couchdb_Document', "asdasdasdasdasd");
+        } catch (JForg_Couchdb_Exception_NoSuchDocument $e)
+        {
+            $actual = $e;
+        }
+        $this->assertInstance($actual,
+                'JForg_Couchdb_Exception_NoSuchDocument');
+
+        try {
+            Solar::factory('JForg_Couchdb_Document', array(
+                        'data' => array(
+                            "_id"=> "76ff882fa8720370f632c40e3a032835",
+                            "_rev"=> "1-211c37537c043fcb1c4b4936b843966c",
+                            "a"=> 4,
+                            "b"=> 16                       
+                            ), 
+                        'sheme' => array(
+                            "a" => "string",
+                            "b" => "int",
+                            ),
+                        ));
+        } catch (JForg_Couchdb_Document_Exception_InvalidSheme $e){
+            $actual = $e;
+        }
+        $this->assertInstance($actual,
+                'JForg_Couchdb_Document_Exception_InvalidSheme');
+        $actual = Solar::factory('JForg_Couchdb_Document',
+                "76ff882fa8720370f632c40e3a032835")->getA();
+        $this->assertSame($actual, 4);
     }
     
     /**
@@ -35,7 +66,14 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
      */
     public function testCount()
     {
-        $this->todo('stub');
+        $actual = coung($this->_instanceOne);
+        $this->assertSame($actual, 2);
+
+        $actual = count($this->_instanceTwo);
+        $this->assertSame($actual, 2);
+
+        $actual = count($this->_instanceThree);
+        $this->assertSame($actual, 0);
     }
     
     /**
@@ -45,7 +83,12 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
      */
     public function testCurrent()
     {
-        $this->todo('stub');
+        $actual = current($this->_instanceOne);
+        $this->assertSame($actual, 4);
+        $actual = current($this->_instanceThree);
+        $this->assertSame($actual, 4);
+        $actual = current($this->_instanceThree);
+        $this->assertFalse($actual);
     }
     
     /**
@@ -55,7 +98,14 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
      */
     public function testKey()
     {
-        $this->todo('stub');
+        $actual = key($this->_instanceOne);
+        $this->assertSame($actual, 'a');
+
+        $actual = key($this->_instanceTwo);
+        $this->assertSame($actual, 'a');
+
+        $actual = key($this->_instanceThree);
+        $this->assertNull($actual);
     }
     
     /**
@@ -65,7 +115,15 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
      */
     public function testNext()
     {
-        $this->todo('stub');
+        $actual = next($this->_instanceOne);
+        $this->assertSame($actual, 16);
+        
+        $actual = next($this->_instanceTwo);
+        $actual = next($this->_instanceTwo);
+        $this->assertFalse($actual);
+
+        $actual = next($this->_instanceThree);
+        $this->assertFalse($actual);
     }
     
     /**
@@ -75,7 +133,16 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
      */
     public function testOffsetExists()
     {
-        $this->todo('stub');
+        $actual = isset($this->_instanceOne['a']);
+        $this->assertTrue($actual);
+
+        $actual = isset($this->_instanceOne['d']);
+        $this->assertFalse($actual);
+
+        $actual = isset($this->_instanceThree['d']);
+        $this->assertFalse($actual);
+
+
     }
     
     /**
@@ -85,7 +152,7 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
      */
     public function testOffsetGet()
     {
-        $this->todo('stub');
+        $this->skip("Tested everywhere else");
     }
     
     /**
@@ -95,7 +162,57 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
      */
     public function testOffsetSet()
     {
-        $this->todo('stub');
+        $this->_instanceOne['a'] = 23;
+        $actual = $this->_instanceOne['a'];
+        $this->assertSame($actual, 23);
+
+
+        $this->_instanceTwo['d'] = "hanf";
+        $actual = $this->_instanceTwo['d'];
+        $this->assertSame($actual, "hanf");
+
+        $this->_instanceThree['d'] = "hanf";
+        $actual = $this->_instanceTwo['d'];
+        $this->assertSame($actual, "hanf");
+
+        
+        $doc = Solar::factory('JForg_Couchdb_Document', array(
+                        'data' => array(
+                            "_id"=> "76ff882fa8720370f632c40e3a032835",
+                            "_rev"=> "1-211c37537c043fcb1c4b4936b843966c",
+                            "a"=> "asd",
+                            "b"=> 16                       
+                            ), 
+                        'sheme' => array(
+                            "a" => "string",
+                            "b" => "int",
+                            ),
+                        ));
+        try {
+            $doc['a'] = 23;
+        } catch (JForg_Couchdb_Document_Exception_InvalidSheme $e){
+            $actual = $e;
+        }
+        $this->assertInstance($actual,
+                'JForg_Couchdb_Document_Exception_InvalidSheme');
+
+        $doc = solar::factory('jforg_couchdb_document', array(
+                        'data' => array(
+                            "_id"=> "76ff882fa8720370f632c40e3a032835",
+                            "_rev"=> "1-211c37537c043fcb1c4b4936b843966c",
+                            "a"=> "asd",
+                            "b"=> 16                       
+                            ), 
+                        'final' => true,
+                        ));
+        try{
+            $doc['f'] = 23;
+        } catch (jforg_couchdb_document_exception_docfinal $e) {
+            $actual = $e;
+        }
+
+        $this->assertInstance($actual,'JForg_Couchdb_Document_Exception_DocFinal');
+
     }
     
     /**
@@ -105,7 +222,9 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
      */
     public function testOffsetUnset()
     {
-        $this->todo('stub');
+        unset($this->_instanceOne['a']);
+        $actual = isset($this->_instanceOne['a']);
+        $this->assertFalse($actual);
     }
     
     /**
@@ -115,7 +234,17 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
      */
     public function testRewind()
     {
-        $this->todo('stub');
+        $actual = current($this->_instanceOne);
+        $this->assertSame($actual, 4);
+
+        next($this->_instanceOne);
+        $actual = current($this->_instanceOne);
+        $this->assertSame($actual, 16);
+
+
+        reset($this->_instanceOne);
+        $actual = current($this->_instanceOne);
+        $this->assertSame($actual, 4);
     }
     
     /**
@@ -125,7 +254,17 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
      */
     public function testToArray()
     {
-        $this->todo('stub');
+        $actual = $this->_instanceTwo->toArray();
+        $expected = array(
+                "_id"=> "76ff882fa8720370f632c40e3a032835", 
+                "_rev"=> "1-211c37537c043fcb1c4b4936b843966c", 
+                "a"=> 4, 
+                "b"=> 16
+                );
+        $this->assertSame($actual, $expected);
+
+        $actual = $this->_instanceOne()->toArray();
+        $this->assertSame($actual, $expected);
     }
     
     /**
@@ -135,7 +274,14 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
      */
     public function testValid()
     {
-        $this->todo('stub');
+        $actual = $this->_instanceOne()->valid();
+        $this->assertTrue($actual);
+
+        next($this->_instanceOne);
+        next($this->_instanceOne);
+
+        $actual = $this->_instanceOne()->valid();
+        $this->assertFalse($actual);
     }
     
     /**
@@ -145,7 +291,10 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
      */
     public function test__call()
     {
-        $this->todo('stub');
+        $actual = $this->_instanceOne->__call('getA');
+        $this->assertSame($actual, 4);
+        $actual = $this->_instanceOne->__call('setA', 23)->getA();
+        $this->assertSame($actual, 23);
     }
     
     /**
@@ -155,17 +304,29 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
      */
     public function test__get()
     {
-        $this->todo('stub');
+        $actual = $this->_instanceOne->a;
+        $this->assertSame($actual, 4);
+
+        $actual = $this->_instanceOne->foo;
+        $this->assertFalse($actual);
     }
     
     /**
      * 
-     * Test -- Checks if a dpcument property is set.
+     * Test -- Checks if a document property is set.
      * 
      */
     public function test__isset()
     {
-        $this->todo('stub');
+        $actual = isset($this->_instanceOne['a']);
+        $this->assertTrue($actual);
+
+        $actual = isset($this->_instanceThree->foo);
+        $this->assertFalse($actual);
+
+        $actual = isset($this->_instanceThree['a']);
+        $this->assertFalse($actual);
+
     }
     
     /**
@@ -175,7 +336,30 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
      */
     public function test__set()
     {
-        $this->todo('stub');
+        $this->_instanceThree->baz = 'asd';
+        $actual = $this->_instanceThree->baz;
+        $this->assertSame($actual, 'asd');
+
+        $doc = Solar::factory('JForg_Couchdb_Document', array(
+                        'data' => array(
+                            "_id"=> "76ff882fa8720370f632c40e3a032835",
+                            "_rev"=> "1-211c37537c043fcb1c4b4936b843966c",
+                            "a"=> "asd",
+                            "b"=> 16                       
+                            ), 
+                        'sheme' => array(
+                            "a" => "string",
+                            "b" => "int",
+                            ),
+                        ));
+        try {
+            $doc['a'] = 23;
+        } catch (JForg_Couchdb_Document_Exception_InvalidSheme $e){
+            $actual = $e;
+        }
+        $this->assertInstance($actual,
+                'JForg_Couchdb_Document_Exception_InvalidSheme');
+
     }
     
     /**
@@ -185,7 +369,7 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
      */
     public function test__toString()
     {
-        $this->todo('stub');
+        $this->skip("same as toArray() with json_decode");
     }
     
     /**
@@ -195,7 +379,10 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
      */
     public function test__unset()
     {
-        $this->todo('stub');
+        unset($this->_instanceOne['a']);
+        $actual = isset($this->_instanceOne->a);
+        $this->assertFalse($actual);
+        
     }
     
     /**
@@ -205,7 +392,41 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
      */
     public function testDelete()
     {
-        $this->todo('stub');
+
+        $doc = Solar::factory('JForg_Couchdb_Document', array(
+                    'data' => array(
+                        "_id"=> "testdoc",
+                        "a"=> 4,
+                        "b"=> 16                       
+                        ), 
+                    ));
+        $doc->save();
+        $doc->delete();
+
+        try {
+            Solar::factory('JForg_Couchdb_Document', 'testdoc');
+        } catch (JForg_Couchdb_Exception_NoSuchDocument $e)
+        {
+            $actual = $e;
+        }
+        $this->assertInstance($actual,'JForg_Couchdb_Exception_NoSuchDocument');
+
+        $doc = Solar::factory('JForg_Couchdb_Document', array(
+                    'data' => array(
+                        "_id"=> "testdoc",
+                        "a"=> 4,
+                        "b"=> 16                       
+                        ), 
+                    ));
+        try {
+        } catch(JForg_Couchdb_Document_Exception_NotSaved $e)
+        {
+            $actual = $e;
+        }
+
+        $this->assertInstance($actual,
+                'JForg_Couchdb_Document_Exception_NotSaved');
+        
     }
     
     /**
@@ -215,7 +436,12 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
      */
     public function testFetchDocumentId()
     {
-        $this->todo('stub');
+        $actual = $this->_instanceOne->fetchDocumentId();
+        $expect = "76ff882fa8720370f632c40e3a032835";
+        $this->assertSame($actual, $expect);
+
+        $actual = is_string($this->_instanceThree->fetchDocumentId());
+        $this->assertTrue($actual);
     }
     
     /**
@@ -225,7 +451,24 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
      */
     public function testFetchDocumentSheme()
     {
-        $this->todo('stub');
+        $doc = Solar::factory('JForg_Couchdb_Document', array(
+                        'data' => array(
+                            "_id"=> "76ff882fa8720370f632c40e3a032835",
+                            "_rev"=> "1-211c37537c043fcb1c4b4936b843966c",
+                            "a"=> "asd",
+                            "b"=> 16                       
+                            ), 
+                        'sheme' => array(
+                            "a" => "string",
+                            "b" => "int",
+                            ),
+                        ));
+
+        $expect = array(
+                "a" => "string",
+                "b" => "int",
+                );
+        $this->assertSame($actual, $expect);
     }
     
     /**
@@ -235,7 +478,12 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
      */
     public function testFetchProperties()
     {
-        $this->todo('stub');
+        $actual = $this->_instanceOne-fetchProperties();
+        $expect = array("a" => 4, "b" => 16); 
+        $this->assertSame($actual, $expect);
+
+        $actual = $this->_instanceThree-fetchProperties();
+        $this->assertSame($actual, array());
     }
     
     /**
@@ -336,5 +584,21 @@ class Test_JForg_Couchdb_Document extends Solar_Test {
     public function testSetSpecialProperty()
     {
         $this->todo('stub');
+    }
+
+    public function preTest()
+    {
+        $this->_instanceOne = Solar::factory('JForg_Couchdb_Document', array(
+                    'data' => array(
+                        "_id"=> "76ff882fa8720370f632c40e3a032835",
+                        "_rev"=> "1-211c37537c043fcb1c4b4936b843966c",
+                        "a"=> 4,
+                        "b"=> 16                       
+                        ), 
+                    ));
+        $this->_instanceTwo = Solar::factory('JForg_Couchdb_Document',
+                '76ff882fa8720370f632c40e3a032835');
+
+        $this->_instanceThree = Solar::factory('JForg_Couchdb_Document');
     }
 }
