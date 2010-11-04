@@ -160,7 +160,42 @@ class JForg_Dodb_Collection extends JForg_Dodb_Array
      */
     public function doForEach($func)
     {
+        $result = array();
         foreach( $this->_data as $record )
-            $func($record);
+            $result[] = $func($record);
+        return $result;
+    }
+
+    /**
+     * Returns a document by it's documentID
+     * 
+     * @param string $id Document id
+     * @access public
+     * @return JForg_Dodb_Collection
+     */
+    public function fetchByDocumentId($id)
+    {
+        foreach($this as $rec) {
+            if ($rec->document->fetchDocumentId() === $id) {
+                return $rec->document;
+            }
+        }
+
+        throw $this->_exception('ERR_NO_SUCH_ID', $id);
+    }
+
+    /**
+     * Returns all documents as array
+     * 
+     * @access public
+     * @return array
+     */
+    public function toArray()
+    {
+        $result = array();
+        foreach ($this as $rec){
+            $result[] = $rec->document->toArray();
+        }
+        return $result;
     }
 }
