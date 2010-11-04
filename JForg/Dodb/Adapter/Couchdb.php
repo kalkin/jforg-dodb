@@ -49,7 +49,7 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      * 
      * @config string encrypted If the database connection should be encrypted
      * 
-     * @config string http_requst A config for the Solar_Http_Request_Adapter
+     * @config string http_request A config for the Solar_Http_Request_Adapter
      * 
      * @var array
      * 
@@ -59,7 +59,7 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
        'dbname' => null,
 	   'port' => '5984',
 	   'encrypted' => false,
-       'http_requst' => null,
+       'http_request' => null,
        );
 
     /**
@@ -552,7 +552,7 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      */
     public function getHttpRequest()
     {
-        if ( isset($this->_config['http_requst']) && $this->_config['http_requst'] != null )
+        if ( isset($this->_config['http_request']) && $this->_config['http_request'] != null )
         {
             $httpClient = Solar::factory('Solar_Http_Request', array('adapter' => 'Solar_Http_Request_Adapter_Curl'));
         }
