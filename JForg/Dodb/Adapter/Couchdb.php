@@ -59,6 +59,7 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
        'dbname' => null,
 	   'port' => '5984',
 	   'encrypted' => false,
+       'cache_adapter'  => null,
        'http_request' => null,
        );
 
@@ -69,6 +70,22 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      * @since 2010-01-26
      */
     protected $_dbName = null;
+
+    /**
+     * Is caching active?
+     * 
+     * @var boolean
+     * @access protected
+     */
+    protected $_caching = false;
+
+    /**
+     * Cache instance
+     * 
+     * @var Solar_Cache
+     * @access protected
+     */
+    protected $_cache = null;
 
     const SPECIAL_ATTACHMENT        = '_attachments';
     const SPECIAL_CONFLICTS         = '_conflicts';
@@ -103,18 +120,18 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      */
     public function fetch($id)
 	{
-        if ( substr($id, 0,8) === '_design/')
-        {
-            if ( !Solar_Registry::exists($id) )
-            {
-                $data = $this->_fetch($id);
-                Solar_Registry::set($id, $this->arrayToDocument($data));
+        if($this->_caching){
+            $doc = $this->_cache->fetch($id);
+            if($doc){
+                return $doc;
             }
-            return Solar_Registry::get($id);
-        } else {
-            $data = $this->_fetch($id);
-            return $this->arrayToDocument($data);
         }
+        $data = $this->_fetch($id);
+        $doc = $this->arrayToDocument($data);
+        if($this->_caching){
+            $this->_cache->add($doc->fetchDocumentId(), $doc);
+        }
+        return $doc;
 	}
 
     /**
@@ -149,10 +166,17 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      */
     public function save(JForg_Dodb_Document $doc)
 	{
+        if($this->_caching){
+            $this->_cache->delete($doc->fetchDocumentId());
+        }
         $data = $this->_save($this->_docToArray($doc));
         if ( isset($data['ok']) )
         {
-            return $this->fetch($data['id']);
+            $doc = $this->fetch($data['id']);
+            if($this->_caching){
+                $this->_cache->add($doc->fetchDocumentId(), $doc);
+            }
+            return $doc;
         }
 	}
 
@@ -212,6 +236,9 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      */
     public function delete(JForg_Dodb_Document $doc)
 	{
+        if($this->_caching){
+            $this->_cache->delete($doc->fetchDocumentId());
+        }
         $this->_delete($doc->fetchDocumentId(), $doc->fetchSpecialProperty('_rev'));
 	}
 
@@ -381,6 +408,12 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
             throw $this->_exception('NO_DBNAME_DEFINED');
         else 
             $this->_dbName = $this->_config['dbname'];
+
+        if (!is_null($this->_config['cache_adapter'])){
+            $this->_cache = Solar::factory('Solar_Cache', 
+                    array('adapter'=> $this->_config['cache_adapter'])); 
+            $this->_caching = true;
+        }
 
     }
 
