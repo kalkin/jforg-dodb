@@ -410,8 +410,9 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
             $this->_dbName = $this->_config['dbname'];
 
         if (!is_null($this->_config['cache_adapter'])){
-            $this->_cache = Solar::factory('Solar_Cache', 
-                    array('adapter'=> $this->_config['cache_adapter'])); 
+            $this->_cache = Solar::factory('Solar_Cache',
+                    array('adapter'=> 
+                            'Solar_Cache_Adapter_Apc'));
             $this->_caching = true;
         }
 
