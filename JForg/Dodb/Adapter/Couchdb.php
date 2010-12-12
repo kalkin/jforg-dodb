@@ -525,7 +525,7 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
      * @return array the result
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
-    public function query(Solar_Uri $uri, Solar_Http_Request_Adapter $request = null) 
+    public function query($uri, Solar_Http_Request_Adapter $request = null) 
     {
         if ( $request == null )
             $request = $this->getHttpRequest();
@@ -535,7 +535,11 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
         //Solar::dump($request);
         //print("\n");
 
-        $request->setUri($uri->get(true));
+        if($uri instanceof Solar_Uri) {
+            $request->setUri($uri->get(true));
+        }else {
+            $request->setUri($uri);
+        }
     	$json = $request->fetch()->content;
 
     	$result =  json_decode($json,true);

@@ -92,13 +92,17 @@ class JForg_Couchdb_Document_Design extends JForg_Dodb_Document
         $uri = $this->_dodb->getUri();
         $uri->setPath($uri->getPath().'/'.$this->_documentId.'/_view/'.$viewName);
 
-        if ( !is_null($params) ) {
-            foreach($params as $key => $value )
-            {
-                $uri->query[$key] = $value;
+        if(is_array($params)){
+            $query = "?";
+            if ( !is_null($params) ) {
+                foreach($params as $key => $value )
+                {
+                    $query .="$key=$value&";
+                }
             }
         }
 
+        Solar::dump( $uri->get(true).$query);
         $data = $this->_dodb->query($uri);
 
         // Is the result empty?
