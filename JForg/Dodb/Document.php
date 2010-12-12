@@ -315,17 +315,17 @@ class JForg_Dodb_Document extends JForg_Dodb_Array implements Iterator
     public function __call($name, $arguments)
     {
 
-        $methodPrefix = substr($name,0,3);
+        $methodPrefix = mb_substr($name,0,3);
         if ($methodPrefix === 'get') {
-            $valueName = substr($name,3);
-            $valueName{0} = strtolower($valueName{0});
+            $valueName = mb_substr($name,3);
+            $valueName{0} = mb_strtolower($valueName{0});
             if ( isset($this->_data[$valueName]) )
                 return $this->_data[$valueName];
             else 
                 return null;
         } elseif ($methodPrefix === 'set') {
-            $property = substr($name,3);
-            $property{0} = strtolower($property{0});
+            $property = mb_substr($name,3);
+            $property{0} = mb_strtolower($property{0});
 
             if ( !$this->_equalsSheme($property, $arguments[0])  && $this->final)
             {

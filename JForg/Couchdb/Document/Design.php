@@ -50,12 +50,12 @@ class JForg_Couchdb_Document_Design extends JForg_Dodb_Document
      */
     public function __call($name, $arguments)
     {
-        $methodPrefix = substr($name,0,4);
+        $methodPrefix = mb_substr($name,0,4);
 
         if ( $methodPrefix === 'view' )
         {
-            $valueName = substr($name,4);
-            $valueName{0} = strtolower($valueName{0});
+            $valueName = mb_substr($name,4);
+            $valueName{0} = mb_strtolower($valueName{0});
             if (isset( $arguments[0] ) )
                 return $this->_callView($valueName, $arguments[0]);
             else
