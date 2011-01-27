@@ -87,8 +87,12 @@ class JForg_Dodb_Collection extends JForg_Dodb_Array
     public function removeByDocId($id)
     {
         foreach( $this->_data as $key => $record )
-            if ( $record->document->fetchDocumentId() === $id )
+        {
+            if ( $record->document->fetchDocumentId() === $id ){
                 unset($this->_data[$key]);
+            }
+        }
+        $this->_data = array_values($this->_data);
         return $this;
     }
 
