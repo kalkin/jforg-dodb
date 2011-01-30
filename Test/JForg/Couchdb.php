@@ -19,10 +19,10 @@ class Test_JForg_Couchdb extends Solar_Test {
     /**
      * @var JForg_Couchdb 
      */
-    protected $_dodb = null;
+    protected $dodb = null;
 
     public function preTest(){
-        $this->_dodb = Solar::factory('JForg_Couchdb');
+        $this->dodb = Solar::factory('JForg_Couchdb');
     }
     
     /**
