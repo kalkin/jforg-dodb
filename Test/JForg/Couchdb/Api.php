@@ -33,32 +33,13 @@ class Test_JForg_Couchdb_Api extends Solar_Test {
      */
     public function test__construct() 
     {
-        try{
-            Solar::factory('JForg_Couchdb_Api', array('dbname' => null));
-            $this->fail('JForg_Couchdb_Exception_NoDbName should be thrown');
-        }catch(JForg_Couchdb_Exception_NoDbName $e){
-            $this->assertInstance($e, 'JForg_Couchdb_Exception_NoDbName');
-        }
-
-        $actual = Solar::factory('JForg_Couchdb_Api', array(
-                    'dbname' => 'example',
-                    'encrypted' => false,
-                    'host' => 'localhost',
-                    'port' => '5984',
-                    'logging'    => false,
-                ));
+        $actual = Solar::factory('JForg_Couchdb_Api');
         $expect = 'JForg_Couchdb_Api';
         $this->assertInstance($actual, $expect);
     }
 
     public function preTest(){
-        $this->api = Solar::factory('JForg_Couchdb_Api', array(
-                    'dbname' => 'example',
-                    'encrypted' => false,
-                    'host' => 'localhost',
-                    'port' => '5984',
-                    'logging'    => false,
-                ));
+        $this->api = Solar::factory('JForg_Couchdb_Api');
     }
 
     /**
@@ -69,7 +50,7 @@ class Test_JForg_Couchdb_Api extends Solar_Test {
     public function testGetHttpRequest()
     {
         $actual = $this->api->getHttpRequest();
-        $this->assertInstance($actual, 'Solar_Http_Request');
+        $this->assertInstance($actual, 'Solar_Http_Request_Adapter');
     }
     
     /**
@@ -79,90 +60,31 @@ class Test_JForg_Couchdb_Api extends Solar_Test {
      */
     public function testGetUri()
     {
-        $api = Solar::factory('JForg_apidb',
-                array(
-                    'dbname' => 'foo',
-                    ));
+        $api = Solar::factory('JForg_Couchdb_Api');
         $actual = $api->getUri()->get(true);
-        $expect = 'http://localhost:5984/foo';
+        $expect = 'http://localhost:5984/';
         $this->assertSame($actual, $expect);
 
-        $api = Solar::factory('JForg_apidb',
+        $api = Solar::factory('JForg_Couchdb_Api',
                 array(
-                    'dbname' => 'foo',
                     'encrypted' => true,
                     'host' => 'example.com',
                     'port' => '2342',
                     ));
         $actual = $api->getUri()->get(true);
-        $expect = 'https://example.com:2342/foo';
+        $expect = 'https://example.com:2342/';
         $this->assertSame($actual, $expect);
 
-        $api = Solar::factory('JForg_apidb',
+        $api = Solar::factory('JForg_Couchdb_Api',
                 array(
-                    'dbname' => 'bar',
                     'encrypted' => false,
                     'host' => 'example.org',
                     ));
         $actual = $api->getUri()->get(true);
-        $expect = 'http://example.org:5984/bar';
+        $expect = 'http://example.org:5984/';
         $this->assertSame($actual, $expect);
     }
 
-    /**
-     * 
-     * Test -- Saves a document as a json string to the database
-     * 
-     */
-    public function testSave()
-    {
-        $api = $this->api;
-        $expect = array(
-                '_id'    => sha1(rand(0, 1231231)),
-                'example_array'     => array(
-                    'array_example_bool'      => true,
-                    'array_example_int'       => rand(0, 255),
-                    'array_example_null'      => null,
-                    'array_example_string'    => 'buz',
-                    ),
-                'example_bool'      => false,
-                'example_int'       => rand(0, 255),
-                'example_null'      => null,
-                'example_string'    => 'lore ipsum',
-                );
-        $this->dump($api->_save(json_encode($expect)));
-        $this->savedArr = $expect;
-
-        //$this->dump($expect['_id']);
-
-
-        // check conflict exception
-        $this->dump($api->_save($expect));
-        $this->fail();
-
-    }
-
-    
-    /**
-     * 
-     * Test -- Deletes a document by id and it's revision
-     * 
-     */
-    public function testDelete()
-    {
-        $this->todo('stub');
-    }
-    
-    /**
-     * 
-     * Test -- Returns a document as array by id
-     * 
-     */
-    public function testFetch()
-    {
-        $this->todo('stub');
-    }
-    
     
     /**
      * 
