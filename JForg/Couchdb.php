@@ -301,7 +301,7 @@ class JForg_Couchdb extends Solar_Base
         }
 
         if (isset($this->_config['default_doc'])) {
-            if (Interface_exists($this->_config['default_doc'])){
+            if (class_exists($this->_config['default_doc'])){
                 $this->_default_doc = $this->_config['default_doc'];
             } else {
                 throw $this->_exception('NO_SUCH_DEFAULT_DOC'); 
