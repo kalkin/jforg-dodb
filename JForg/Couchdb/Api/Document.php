@@ -39,10 +39,28 @@ class JForg_Couchdb_Api_Document extends JForg_Couchdb_Api{
 
 
     /**
+     * Create a new document in the database, using the supplied JSON document
+     * structure. If the JSON structure includes the _id field, then the document
+     * will be created with the specified document ID. If the _id field is not
+     * specified, a new unique ID will be generated.  
+     * 
+     * @param array $doc Document array
+     * @param boolean $batch Allow document store request to be batched with others
+     * @throws JForg_Couchdb_Api_Document_Exception_Conflict
+     * @access public
+     * @return void
+     */
+    public function create($doc, $batch = false)
+    {
+        return false;
+    }
+
+    /**
      * Deletes a document by id and it's revision
      * 
-     * @param mixed $id Document id
-     * @param mixed $rev Revision the document is based on
+     * @param string $id Document id
+     * @param string $rev Revision the document is based on
+     * @throw JForg_Couchdb_Api_Document_Exception_RevNotFound,
      * @access public
      * @return string
      */
@@ -56,10 +74,86 @@ class JForg_Couchdb_Api_Document extends JForg_Couchdb_Api{
      *
      * @access public
      * @param string $id Document id
+     * @throw JForg_Couchdb_Api_Document_Exception_IllegalRev,
+     *      JForg_Couchdb_Api_Document_Exception_DocOrRevNotFound
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
-     * @return string
+     * @return array
      */
     public function fetch($id){ return null;}
+
+    /**
+     * Returns a document as array by id and revision
+     *
+     * @access public
+     * @param string $id Document id
+     * @param string $rev Revision the document is based on
+     * @throw JForg_Couchdb_Api_Document_Exception_IllegalRev,
+     *      JForg_Couchdb_Api_Document_Exception_DocOrRevNotFound
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     * @return array
+     */
+    public function fetchByIdAndRev($id, $rev)
+    {
+        return null;
+    }
+
+    /**
+     * Returns the file attachment attachment associated with the document doc.
+     * The function returns an array containing the Content-Type and data
+     * 
+     * @param string $id Document id
+     * @param string $name Attachment name
+     * @access public
+     * @return array
+     */
+    public function fetchDocAttachment($id, $name)
+    {
+        return null;
+    }
+
+    /**
+     * Upload the supplied content as an attachment to the specified document.
+     * 
+     * @param string $id Document id
+     * @param string $rev Revision the document is based on
+     * @param string $name Attachment name
+     * @param string $type Content Type
+     * @param mixed $data Attachment data
+     * @access public
+     * @return boolean
+     */
+    public function saveDocAttachment($id, $rev, $name, $type, $data)
+    {
+    }
+
+    /**
+     * Deletes the attachment attachment to the specified doc.
+     * 
+     * @param string $id Document id
+     * @param string $rev Revision the document is based on
+     * @param string $name Attachment name
+     * @access public
+     * @return boolean
+     */
+    public function deleteDocAttachment($id, $rev, $name)
+    {
+        return false;
+    }
+
+    /**
+     * Return a list of detailed revision information for the document
+     *
+     * @access public
+     * @param string $id Document id
+     * @throw JForg_Couchdb_Api_Document_Exception_IllegalRev,
+     *      JForg_Couchdb_Api_Document_Exception_DocOrRevNotFound
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     * @return array
+     */
+    public function fetchRevsInfo($id)
+    {
+        return null;
+    }
 
 
     /**

@@ -87,4 +87,64 @@ class Test_JForg_Couchdb_Api_Document extends Solar_Test {
     {
         $this->todo('stub');
     }
+    
+    /**
+     * 
+     * Test -- Create a new document in the database, using the supplied JSON document structure.
+     * 
+     */
+    public function testCreate()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Deletes the attachment attachment to the specified doc.
+     * 
+     */
+    public function testDeleteDocAttachment()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Returns a document as array by id and revision
+     * 
+     */
+    public function testFetchByIdAndRev()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Returns the file attachment attachment associated with the document doc.
+     * 
+     */
+    public function testFetchDocAttachment()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Return a list of detailed revision information for the document
+     * 
+     */
+    public function testFetchRevsInfo()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Upload the supplied content as an attachment to the specified document.
+     * 
+     */
+    public function testSaveDocAttachment()
+    {
+        $this->todo('stub');
+    }
 }
