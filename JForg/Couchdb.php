@@ -71,7 +71,7 @@ class JForg_Couchdb extends Solar_Base
        'http_requst' => null,
 	   'port' => '5984',
        'type_safe'     => false,
-            
+       'logging'    => false,
             );
 
     /**
