@@ -184,7 +184,7 @@ class JForg_Couchdb extends Solar_Base
     }
 
     /**
-     * Returns a preoared Solar_Uri object for interaction with the database
+     * Returns a prepared Solar_Uri object for interaction with the database
      * directly via JForg_Couchdb::query()
      * 
      * @see JForg_Couchdb::query()
@@ -214,16 +214,16 @@ class JForg_Couchdb extends Solar_Base
     }
 
     /**
-     * Returns a specified number of uuids. NOTE: It does not check for
-     * existing document ids; collision-detection happens when you are trying
-     * to save a document. 
+     * Returns a pseudo random uuid. NOTE: It does not check for existing
+     * document ids; collision-detection happens when you are trying to save a
+     * document. 
      * 
-     * @param int $count Optional, defaults to 1. How many Uuids should be returned? 
-     * 
-     * @return array An indexed array with id's
+     * @return string uuid
      * @author Bahtiar Gadimov <bahtiar@gadimov.de>
      */
-    public function getUuid($count = 1){}
+    public function getUuid(){
+        return sha1(microtime().mt_rand(0, mt_getrandmax()));
+    }
 
     /**
      * Parses a couchdb error, creates an Exception from it and throws it
