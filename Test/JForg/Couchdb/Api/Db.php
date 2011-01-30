@@ -57,4 +57,44 @@ class Test_JForg_Couchdb_Api_Db extends Solar_Test {
     {
         $this->todo('stub');
     }
+    
+    /**
+     * 
+     * Test -- Gets information about the specified database.
+     * 
+     */
+    public function testGetInfo()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Request compaction of the database.
+     * 
+     */
+    public function testCompact()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Creates database.
+     * 
+     */
+    public function testCreate()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Deletes the database, and all the documents and attachments contained within it.
+     * 
+     */
+    public function testDelete()
+    {
+        $this->todo('stub');
+    }
 }

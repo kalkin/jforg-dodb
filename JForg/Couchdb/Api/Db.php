@@ -37,4 +37,70 @@
  */
 class JForg_Couchdb_Api_Db extends JForg_Couchdb_Api {
 
+
+
+    /**
+     * Creates database. The database name must be composed of one or more
+     * of the following characters:
+     *      Lowercase characters (a-z)
+     *      Name must begin with a lowercase letter
+     *      Digits (0-9)
+     *      Any of the characters _, $, (, ), +, -, and /. 
+     * 
+     * @access public
+     * @throws JForg_Couchdb_Api_Db_Exception_DbIllegalName,
+     *          JForg_Couchdb_Api_Db_Exception_DbNotFound
+     * @return boolean
+     */
+    public function create()
+    {
+        return false;
+    }
+
+    /**
+     * Deletes the database, and all the documents and attachments contained
+     * within it. 
+     * 
+     * @access public
+     * @throws JForg_Couchdb_Api_Db_Exception_DbNotFound
+     * @return boolean
+     */
+    public function delete()
+    {
+        return false;
+    }
+
+    /**
+     * Request compaction of the database. Compaction compresses the disk
+     * database file by performing the following operations:
+     *    - Writes a new version of the database file, removing any unused sections
+     *      from the new version during write. Because a new file is temporary created
+     *      for this purpose, you will need twice the current storage space of the
+     *      specified database in order for the compaction routine to complete.
+     *
+     *    - Removes old revisions of documents from the database, up to the
+     *      per-database limit specified by the _revs_limit database parameter.  
+     * 
+     * @access public
+     * @throws JForg_Couchdb_Api_Db_Exception_DbNotFound
+     * @return bool
+     */
+    public function compact()
+    {
+        return false;
+    }
+
+    /**
+     * Gets information about the database.
+     * 
+     * @param string $db 
+     * @access public
+     * @throws JForg_Couchdb_Api_Db_Exception_DbNotFound
+     * @return array
+     */
+    public function getInfo()
+    {
+        return null;
+    }
+
 }
