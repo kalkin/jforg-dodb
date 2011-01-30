@@ -15,6 +15,10 @@ class Test_JForg_Couchdb_Api_Db extends Solar_Test {
      */
     protected $_Test_JForg_Couchdb_Api_Db = array(
     );
+
+    public function preTest(){
+        $this->api = Solar::factory('JForg_Couchdb_Api_Db');
+    }
     
     /**
      * 
@@ -35,9 +39,10 @@ class Test_JForg_Couchdb_Api_Db extends Solar_Test {
      */
     public function testGetHttpRequest()
     {
-        $this->todo('stub');
+        $actual = $this->api->getHttpRequest();
+        $this->assertInstance($actual, 'Solar_Http_Request_Adapter');
     }
-    
+
     /**
      * 
      * Test -- Returns a prepared Solar_Uri object for interaction with the database directly via JForg_Couchdb::query()
@@ -45,7 +50,29 @@ class Test_JForg_Couchdb_Api_Db extends Solar_Test {
      */
     public function testGetUri()
     {
-        $this->todo('stub');
+        $api = Solar::factory('JForg_Couchdb_Api_Db');
+        $actual = $api->getUri()->get(true);
+        $expect = 'http://localhost:5984/';
+        $this->assertSame($actual, $expect);
+
+        $api = Solar::factory('JForg_Couchdb_Api_Db',
+                array(
+                    'encrypted' => true,
+                    'host' => 'example.com',
+                    'port' => '2342',
+                    ));
+        $actual = $api->getUri()->get(true);
+        $expect = 'https://example.com:2342/';
+        $this->assertSame($actual, $expect);
+
+        $api = Solar::factory('JForg_Couchdb_Api_Db',
+                array(
+                    'encrypted' => false,
+                    'host' => 'example.org',
+                    ));
+        $actual = $api->getUri()->get(true);
+        $expect = 'http://example.org:5984/';
+        $this->assertSame($actual, $expect);
     }
     
     /**
