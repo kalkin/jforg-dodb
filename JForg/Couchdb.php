@@ -59,13 +59,14 @@ class JForg_Couchdb extends Solar_Base
      * @config bool type_safe If the adapter should fall back to default_doc if
      *   type is unrecognized
      * 
+     * @config bool logging If logging should be activated
      * 
      * @var array
      * 
      */
-    protected $_JForg_Couchdb_Adapter = array (
+    protected $_JForg_Couchdb = array (
        'dbname' => null,
-       'default_doc'   => 'JForg_Dodb_Document',
+       'default_doc'   => 'JForg_Couchdb_Document',
 	   'encrypted' => false,
 	   'host' => 'localhost',
        'http_requst' => null,
