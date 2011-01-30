@@ -274,7 +274,7 @@ class JForg_Couchdb extends Solar_Base
     {
         parent::_postConfig();
 
-        if (isset($this->_config['dbname'])) {
+        if (!isset($this->_config['dbname'])) {
             throw $this->_exception('NO_DBNAME_DEFINED');
         } else {
             $this->_dbName = $this->_config['dbname'];
