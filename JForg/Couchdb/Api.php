@@ -41,8 +41,6 @@ class JForg_Couchdb_Api extends Solar_Base
      * 
      * Default configuration values.
      * 
-     * @config string dbname A database name to use.
-     * 
      * @config string encrypted If the database connection should be encrypted
      * 
      * @config string host A host to use.
@@ -55,7 +53,6 @@ class JForg_Couchdb_Api extends Solar_Base
      * 
      */
     protected $_JForg_Couchdb_Api = array(
-       'dbname' => null,
 	   'encrypted' => false,
 	   'host' => 'localhost',
 	   'port' => '5984',
@@ -104,8 +101,6 @@ class JForg_Couchdb_Api extends Solar_Base
     		$uri->user = $this->_config['user'];
     		$uri->pass = $this->_config['password'];
     	}
-
-    	$uri->setPath($this->_dbName);
 
         return $uri;
     }
