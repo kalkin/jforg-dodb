@@ -272,6 +272,19 @@ class JForg_Couchdb extends Solar_Base
     {}
 
     /**
+     * Saves an array to the database
+     * 
+     * @access protected
+     * @param mixed $document An array representing a document
+     * @author Bahtiar Gadimov <bahtiar@gadimov.de>
+     * @return boolean
+     */
+    public function _save($document)
+    {
+        return false;
+    }
+
+    /**
      * Sets the $_type_safe and $_default_doc
      * 
      * @return void
