@@ -48,7 +48,7 @@ class JForg_Couchdb_Api_Db extends JForg_Couchdb_Api {
      *      Any of the characters _, $, (, ), +, -, and /. 
      * 
      * @access public
-     * @param string $db 
+     * @param string $db Database Name
      * @throws JForg_Couchdb_Api_Db_Exception_DbIllegalName,
      *          JForg_Couchdb_Api_Db_Exception_DbNotFound
      * @return boolean
@@ -63,7 +63,7 @@ class JForg_Couchdb_Api_Db extends JForg_Couchdb_Api {
      * within it. 
      * 
      * @access public
-     * @param string $db 
+     * @param string $db Database Name
      * @throws JForg_Couchdb_Api_Db_Exception_DbNotFound
      * @return boolean
      */
@@ -84,7 +84,7 @@ class JForg_Couchdb_Api_Db extends JForg_Couchdb_Api {
      *      per-database limit specified by the _revs_limit database parameter.  
      * 
      * @access public
-     * @param string $db 
+     * @param string $db Database Name
      * @throws JForg_Couchdb_Api_Db_Exception_DbNotFound
      * @return bool
      */
@@ -96,7 +96,7 @@ class JForg_Couchdb_Api_Db extends JForg_Couchdb_Api {
     /**
      * Gets information about the database.
      * 
-     * @param string $db 
+     * @param string $db Database Name
      * @access public
      * @throws JForg_Couchdb_Api_Db_Exception_DbNotFound
      * @return array
