@@ -36,23 +36,74 @@ class Test_JForg_Couchdb extends Solar_Test {
         $expect = 'JForg_Couchdb';
         $this->assertInstance($actual, $expect);
     }
+
+    /**
+     * 
+     * Test -- Returns a random uuid.
+     * 
+     */
+    public function testGetUuid()
+    {
+        $first = $this->dodb->getUuid();
+        $this->assertNotNull($first);
+        $second = $this->dodb->getUuid();
+        $this->assertNotSame($first, $second);
+    }
+
+    /**
+     * 
+     * Test -- Returns a preoared Solar_Uri object for interaction with the
+     database directly via JForg_Couchdb::query()
+     * 
+     */
+    public function testGetUri()
+    {
+        $dodb = Solar::factory('JForg_Couchdb',
+                array(
+                    'dbname' => 'foo',
+                    ));
+        $actual = $dodb->getUri()->get(true);
+        $expect = 'http://localhost:5984/foo';
+        $this->assertSame($actual, $expect);
+
+        $dodb = Solar::factory('JForg_Couchdb',
+                array(
+                    'dbname' => 'foo',
+                    'encrypted' => true,
+                    'host' => 'example.com',
+                    'port' => '2342',
+                    ));
+        $actual = $dodb->getUri()->get(true);
+        $expect = 'https://example.com:2342/foo';
+        $this->assertSame($actual, $expect);
+
+        $dodb = Solar::factory('JForg_Couchdb',
+                array(
+                    'dbname' => 'bar',
+                    'encrypted' => false,
+                    'host' => 'example.org',
+                    ));
+        $actual = $dodb->getUri()->get(true);
+        $expect = 'http://example.org:5984/bar';
+        $this->assertSame($actual, $expect);
+    }
     
     /**
      * 
-     * Test -- Generates from a database specific output a JForg_Couchdb_Document
+     * Test -- Saves an array to the database
      * 
      */
-    public function testArrayToDocument()
+    public function test_save()
     {
         $this->todo('stub');
     }
     
     /**
      * 
-     * Test -- Deletes a document from the database
+     * Test -- Saves a document
      * 
      */
-    public function testDelete()
+    public function testSave()
     {
         $this->todo('stub');
     }
@@ -66,6 +117,16 @@ class Test_JForg_Couchdb extends Solar_Test {
     {
         $this->todo('stub');
     }
+
+    /**
+     * 
+     * Test -- Deletes a document from the database
+     * 
+     */
+    public function testDelete()
+    {
+        $this->todo('stub');
+    }
     
     /**
      * 
@@ -73,26 +134,6 @@ class Test_JForg_Couchdb extends Solar_Test {
      * 
      */
     public function testGetHttpRequest()
-    {
-        $this->todo('stub');
-    }
-    
-    /**
-     * 
-     * Test -- Returns a preoared Solar_Uri object for interaction with the database directly via JForg_Couchdb::query()
-     * 
-     */
-    public function testGetUri()
-    {
-        $this->todo('stub');
-    }
-    
-    /**
-     * 
-     * Test -- Returns a specified number of uuids.
-     * 
-     */
-    public function testGetUuid()
     {
         $this->todo('stub');
     }
@@ -116,14 +157,15 @@ class Test_JForg_Couchdb extends Solar_Test {
     {
         $this->todo('stub');
     }
-    
+
     /**
      * 
-     * Test -- Saves a document
+     * Test -- Generates from a database specific output a JForg_Couchdb_Document
      * 
      */
-    public function testSave()
+    public function testArrayToDocument()
     {
         $this->todo('stub');
     }
+    
 }
