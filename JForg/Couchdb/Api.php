@@ -70,7 +70,8 @@ abstract class JForg_Couchdb_Api extends Solar_Base
      */
     public function getHttpRequest()
     {
-        $httpClient = Solar::factory('Solar_Http_Request');
+        $httpClient = Solar::factory('Solar_Http_Request', array('adapter' =>
+                'Solar_Http_Request_Adapter_Stream'));
 
         $httpClient->setContent('');
 
