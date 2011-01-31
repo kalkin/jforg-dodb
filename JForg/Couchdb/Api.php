@@ -35,7 +35,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-class JForg_Couchdb_Api extends Solar_Base
+abstract class JForg_Couchdb_Api extends Solar_Base
 {
     /**
      * 
@@ -119,4 +119,14 @@ class JForg_Couchdb_Api extends Solar_Base
     {
         return null;
     }
+
+    /**
+     * Parses a couchdb error and throws an exception
+     * 
+     * @param mixed $errorArray 
+     * @abstract
+     * @access public
+     * @return void
+     */
+   public abstract function parseError($errorArray);
 }
