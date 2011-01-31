@@ -107,15 +107,27 @@ class JForg_Couchdb_Api_Db extends JForg_Couchdb_Api {
     }
 
     /**
-     * Parses a couchdb error and throws an exception
+     * Checks if a result from couchdb is an error message, if so it throws an
+     * exception.
      * 
-     * @param mixed $errorArray 
+     * @param array $data Result returned from couchdb query
+     * @abstract
      * @access public
      * @return void
      */
-    public function parseError($errorArray)
-    {
-        // code...
-    }
+   public function checkForErrors($data){
+       if(isset($data['error'])){
+           switch ($data['error']) {
+               case 'file_exists':
+                   throw $this->_exception('ERR_DATABASE_ALREADY_EXISTS', $data);
+                   break;
+
+               default:
+                   throw $this->_exception('ERR_'.strtoupper($data['error']), $data);
+                   break;
+           }
+
+       }
+   }
 
 }
