@@ -122,12 +122,34 @@ abstract class JForg_Couchdb_Api extends Solar_Base
     }
 
     /**
-     * Parses a couchdb error and throws an exception
+     * Checks if a result from couchdb is an error message, if so it throws an
+     * exception.
      * 
-     * @param mixed $errorArray 
+     * @param array $data Result returned from couchdb query
      * @abstract
      * @access public
      * @return void
      */
-   public abstract function parseError($errorArray);
+   public abstract function checkForErrors($data);
+
+   /**
+    * Logs to the logger if config field logging is true
+    * 
+    * @param mixed $msg The message
+    * @param string $event Event type
+    * @access protected
+    * @return void
+    */
+   protected function _log($msg, $event = 'DEBUG')
+   {
+       if($this->_config['logging']){
+           if( is_string($msg) )
+               Solar_Registry::get('log')->save(get_class($this), $event, $msg);
+           else 
+           {
+               $msg = Solar_Registry::get('log_out')->fetch($msg);
+               Solar_Registry::get('log')->save(get_class($this), $event, $msg);
+           }
+       }
+   }
 }
