@@ -148,13 +148,14 @@ class Test_JForg_Couchdb_Api_Document extends Solar_Test {
         $this->todo('stub');
     }
     
+    
     /**
      * 
-     * Test -- Parses a couchdb error and throws an exception
+     * Test -- Checks if a result from couchdb is an error message, if so it throws an exception.
      * 
      */
-    public function testParseError()
+    public function testCheckForErrors()
     {
-        $this->todo('stub');
+        $this->skip('no reasonable tests for this');
     }
 }

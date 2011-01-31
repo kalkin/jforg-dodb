@@ -168,4 +168,14 @@ class Test_JForg_Couchdb extends Solar_Test {
         $this->todo('stub');
     }
     
+    
+    /**
+     * 
+     * Test -- 
+     * 
+     */
+    public function testGetApi()
+    {
+        $this->todo('stub');
+    }
 }
