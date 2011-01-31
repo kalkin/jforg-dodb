@@ -95,4 +95,14 @@ class Test_JForg_Couchdb_Api extends Solar_Test {
     {
         $this->todo('stub');
     }
+    
+    /**
+     * 
+     * Test -- Parses a couchdb error and throws an exception
+     * 
+     */
+    public function testParseError()
+    {
+        $this->skip('abstract method');
+    }
 }

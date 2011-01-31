@@ -147,4 +147,14 @@ class Test_JForg_Couchdb_Api_Document extends Solar_Test {
     {
         $this->todo('stub');
     }
+    
+    /**
+     * 
+     * Test -- Parses a couchdb error and throws an exception
+     * 
+     */
+    public function testParseError()
+    {
+        $this->todo('stub');
+    }
 }

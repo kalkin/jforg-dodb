@@ -16,6 +16,14 @@ class Test_JForg_Couchdb_Api_Db extends Solar_Test {
     protected $_Test_JForg_Couchdb_Api_Db = array(
     );
 
+    /**
+     * Db name which should be used for deletion
+     * 
+     * @var string
+     * @access public
+     */
+    public $dbToDelete = null;
+
     public function preTest(){
         $this->api = Solar::factory('JForg_Couchdb_Api_Db');
     }
@@ -74,17 +82,56 @@ class Test_JForg_Couchdb_Api_Db extends Solar_Test {
         $expect = 'http://example.org:5984/';
         $this->assertSame($actual, $expect);
     }
-    
+
     /**
      * 
-     * Test -- Queries the couchdb database directly
+     * Test -- Creates database.
      * 
      */
-    public function testQuery()
+    public function testCreate()
     {
-        $this->todo('stub');
+        $randName = "example".rand(0, 244);
+        $this->dbToDelete = $randName;
+        $this->assertTrue($this->api->create($randName));
+
+        // This should fail with an exception
+        try{
+            $this->api->create('123asd');
+            $this->fail( 'Tried to create db with illegal name, no exception was thrown');
+        }catch (JForg_Couchdb_Api_Db_Exception_DbIllegalName $e){
+            $this->assertInstance($e,
+                    'JForg_Couchdb_Api_Db_Exception_DbIllegalName');
+        }
+
+        // This should also fail
+        try{
+            $this->api->create($randName);
+            $this->fail( 'Tried to create db wich already exists, no exception was thrown');
+        }catch (JForg_Couchdb_Api_Db_Exception_DbAlreadyExists $e){
+            $this->assertInstance($e,
+                    'JForg_Couchdb_Api_Db_Exception_DbAlreadyExists');
+        }
     }
-    
+
+    /**
+     * 
+     * Test -- Deletes the database, and all the documents and attachments contained within it.
+     * 
+     */
+    public function testDelete()
+    {
+        $this->assertTrue($this->api->delete($this->dbToDelete));
+
+        try{
+            $this->api->delete('as23');
+            $this->fail('Tried to delete not existent db, an exception should be thrown'); 
+        }catch (JForg_Couchdb_Api_Db_Exception_DbNotFound $e)
+        {
+            $this->assertInstance($e,
+                    'JForg_Couchdb_Api_Db_Exception_DbNotFound');
+        }
+    }
+
     /**
      * 
      * Test -- Gets information about the specified database.
@@ -97,6 +144,17 @@ class Test_JForg_Couchdb_Api_Db extends Solar_Test {
     
     /**
      * 
+     * Test -- Queries the couchdb database directly
+     * 
+     */
+    public function testQuery()
+    {
+        $this->todo('stub');
+    }
+    
+    
+    /**
+     * 
      * Test -- Request compaction of the database.
      * 
      */
@@ -105,22 +163,13 @@ class Test_JForg_Couchdb_Api_Db extends Solar_Test {
         $this->todo('stub');
     }
     
-    /**
-     * 
-     * Test -- Creates database.
-     * 
-     */
-    public function testCreate()
-    {
-        $this->todo('stub');
-    }
     
     /**
      * 
-     * Test -- Deletes the database, and all the documents and attachments contained within it.
+     * Test -- Parses a couchdb error and throws an exception
      * 
      */
-    public function testDelete()
+    public function testParseError()
     {
         $this->todo('stub');
     }
