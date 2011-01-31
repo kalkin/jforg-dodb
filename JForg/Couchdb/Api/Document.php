@@ -170,14 +170,13 @@ class JForg_Couchdb_Api_Document extends JForg_Couchdb_Api{
     }
 
     /**
-     * Parses a couchdb error and throws an exception
+     * Checks if a result from couchdb is an error message, if so it throws an
+     * exception.
      * 
-     * @param mixed $errorArray 
+     * @param array $data Result returned from couchdb query
+     * @abstract
      * @access public
      * @return void
      */
-    public function parseError($errorArray)
-    {
-        // code...
-    }
+   public function checkForErrors($data){}
 }
