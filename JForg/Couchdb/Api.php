@@ -118,7 +118,24 @@ abstract class JForg_Couchdb_Api extends Solar_Base
     public function query(Solar_Uri $uri, 
             Solar_Http_Request_Adapter $request = null) 
     {
-        return null;
+        if(is_null($request)){
+            $request = $this->getHttpRequest();
+        }
+
+        $this->_log($uri->get(true));
+        $this->_log($request);
+
+
+        $request->setUri($uri);
+    	$json = $request->fetch()->content;
+        $this->_log($json);
+
+    	$result =  json_decode($json,true);
+        $this->_log($result);
+
+        $this->checkForErrors($result);
+
+        return $result;
     }
 
     /**
