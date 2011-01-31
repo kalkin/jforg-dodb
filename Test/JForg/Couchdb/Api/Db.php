@@ -98,18 +98,18 @@ class Test_JForg_Couchdb_Api_Db extends Solar_Test {
         try{
             $this->api->create('123asd');
             $this->fail( 'Tried to create db with illegal name, no exception was thrown');
-        }catch (JForg_Couchdb_Api_Db_Exception_DbIllegalName $e){
+        }catch (JForg_Couchdb_Api_Db_Exception_IllegalDatabaseName $e){
             $this->assertInstance($e,
-                    'JForg_Couchdb_Api_Db_Exception_DbIllegalName');
+                    'JForg_Couchdb_Api_Db_Exception_IllegalDatabaseName');
         }
 
         // This should also fail
         try{
             $this->api->create($randName);
             $this->fail( 'Tried to create db wich already exists, no exception was thrown');
-        }catch (JForg_Couchdb_Api_Db_Exception_DbAlreadyExists $e){
+        }catch (JForg_Couchdb_Api_Db_Exception_DatabaseAlreadyExists $e){
             $this->assertInstance($e,
-                    'JForg_Couchdb_Api_Db_Exception_DbAlreadyExists');
+                    'JForg_Couchdb_Api_Db_Exception_DatabaseAlreadyExists');
         }
     }
 
@@ -172,5 +172,15 @@ class Test_JForg_Couchdb_Api_Db extends Solar_Test {
     public function testParseError()
     {
         $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Checks if a result from couchdb is an error message, if so it throws an exception.
+     * 
+     */
+    public function testCheckForErrors()
+    {
+        $this->skip('no reasonable tests for this');
     }
 }
