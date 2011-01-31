@@ -50,7 +50,7 @@ class JForg_Couchdb_Api_Db extends JForg_Couchdb_Api {
      * @access public
      * @param string $db Database Name
      * @throws JForg_Couchdb_Api_Db_Exception_DbIllegalName,
-     *          JForg_Couchdb_Api_Db_Exception_DbNotFound
+     *      JForg_Couchdb_Api_Db_Exception_DbAlreadyExists
      * @return boolean
      */
     public function create($db)
@@ -104,6 +104,18 @@ class JForg_Couchdb_Api_Db extends JForg_Couchdb_Api {
     public function getInfo($db)
     {
         return null;
+    }
+
+    /**
+     * Parses a couchdb error and throws an exception
+     * 
+     * @param mixed $errorArray 
+     * @access public
+     * @return void
+     */
+    public function parseError($errorArray)
+    {
+        // code...
     }
 
 }
