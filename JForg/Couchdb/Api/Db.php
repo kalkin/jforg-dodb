@@ -55,6 +55,22 @@ class JForg_Couchdb_Api_Db extends JForg_Couchdb_Api {
      */
     public function create($db)
     {
+        if(!is_string($db)){
+            $this->_exception('ERR_DB_ILLEGAL_NAME');
+        }
+
+        $request = $this->getHttpRequest()
+            ->setMethod(Solar_Http_Request::METHOD_PUT);
+        
+        $uri = $this->getUri();
+        $uri->setPath($db);
+        $result = $this->query($uri, $request);
+
+        if(isset($result['db_name'])){
+            return true;
+        } else {
+            $this->_exception('ERR_DB_CREATION_FAILED', $result);
+        }
         return false;
     }
 
