@@ -131,6 +131,17 @@ class Test_JForg_Couchdb_Api_Db extends Solar_Test {
                     'JForg_Couchdb_Api_Db_Exception_DatabaseNotFound');
         }
     }
+    
+    /**
+     * 
+     * Test -- Request compaction of the database.
+     * 
+     */
+    public function testCompact()
+    {
+        $actual = $this->api->compact('example23');
+        $this->assertTrue($actual);
+    }
 
     /**
      * 
@@ -151,14 +162,4 @@ class Test_JForg_Couchdb_Api_Db extends Solar_Test {
         }
     }
 
-    
-    /**
-     * 
-     * Test -- Request compaction of the database.
-     * 
-     */
-    public function testCompact()
-    {
-        $this->todo('stub');
-    }
 }
