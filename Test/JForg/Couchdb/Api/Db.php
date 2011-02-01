@@ -90,9 +90,7 @@ class Test_JForg_Couchdb_Api_Db extends Solar_Test {
      */
     public function testCreate()
     {
-        $randName = "example".rand(0, 244);
-        $this->dbToDelete = $randName;
-        $this->assertTrue($this->api->create($randName));
+        $this->assertTrue($this->api->create('example23'));
 
         // This should fail with an exception
         try{
@@ -105,7 +103,7 @@ class Test_JForg_Couchdb_Api_Db extends Solar_Test {
 
         // This should also fail
         try{
-            $this->api->create($randName);
+            $this->api->create('example23');
             $this->fail( 'Tried to create db wich already exists, no exception was thrown');
         }catch (JForg_Couchdb_Api_Db_Exception_DatabaseAlreadyExists $e){
             $this->assertInstance($e,
@@ -120,15 +118,15 @@ class Test_JForg_Couchdb_Api_Db extends Solar_Test {
      */
     public function testDelete()
     {
-        $this->assertTrue($this->api->delete($this->dbToDelete));
+        $this->assertTrue($this->api->delete('example23'));
 
         try{
             $this->api->delete('as23');
             $this->fail('Tried to delete not existent db, an exception should be thrown'); 
-        }catch (JForg_Couchdb_Api_Db_Exception_DbNotFound $e)
+        }catch (JForg_Couchdb_Api_Db_Exception_DatabaseNotFound $e)
         {
             $this->assertInstance($e,
-                    'JForg_Couchdb_Api_Db_Exception_DbNotFound');
+                    'JForg_Couchdb_Api_Db_Exception_DatabaseNotFound');
         }
     }
 
@@ -144,43 +142,11 @@ class Test_JForg_Couchdb_Api_Db extends Solar_Test {
     
     /**
      * 
-     * Test -- Queries the couchdb database directly
-     * 
-     */
-    public function testQuery()
-    {
-        $this->todo('stub');
-    }
-    
-    
-    /**
-     * 
      * Test -- Request compaction of the database.
      * 
      */
     public function testCompact()
     {
         $this->todo('stub');
-    }
-    
-    
-    /**
-     * 
-     * Test -- Parses a couchdb error and throws an exception
-     * 
-     */
-    public function testParseError()
-    {
-        $this->todo('stub');
-    }
-    
-    /**
-     * 
-     * Test -- Checks if a result from couchdb is an error message, if so it throws an exception.
-     * 
-     */
-    public function testCheckForErrors()
-    {
-        $this->skip('no reasonable tests for this');
     }
 }
