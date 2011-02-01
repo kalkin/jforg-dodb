@@ -49,14 +49,14 @@ class JForg_Couchdb_Api_Db extends JForg_Couchdb_Api {
      * 
      * @access public
      * @param string $db Database Name
-     * @throws JForg_Couchdb_Api_Db_Exception_DbIllegalName,
-     *      JForg_Couchdb_Api_Db_Exception_DbAlreadyExists
+     * @throws JForg_Couchdb_Api_Db_Exception_IllegalDatabaseName,
+     *      JForg_Couchdb_Api_Db_Exception_DatabaseAlreadyExists
      * @return boolean
      */
     public function create($db)
     {
         if(!is_string($db)){
-            $this->_exception('ERR_DB_ILLEGAL_NAME');
+            $this->_exception('ERR_ILLEGAL_DATABASE_NAME');
         }
 
         $request = $this->getHttpRequest()
@@ -137,6 +137,9 @@ class JForg_Couchdb_Api_Db extends JForg_Couchdb_Api {
                case 'file_exists':
                    throw $this->_exception('ERR_DATABASE_ALREADY_EXISTS', $data);
                    break;
+               case 'not_found':
+                    throw $this->_exception('ERR_DATABASE_NOT_FOUND', $data);
+                    break;
 
                default:
                    throw $this->_exception('ERR_'.strtoupper($data['error']), $data);
