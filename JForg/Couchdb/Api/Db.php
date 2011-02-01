@@ -80,11 +80,27 @@ class JForg_Couchdb_Api_Db extends JForg_Couchdb_Api {
      * 
      * @access public
      * @param string $db Database Name
-     * @throws JForg_Couchdb_Api_Db_Exception_DbNotFound
+     * @throws JForg_Couchdb_Api_Db_Exception_DatabaseNotFound,
+    *       JForg_Couchdb_Api_Db_Exception_IllegalDatabaseName
      * @return boolean
      */
     public function delete($db)
     {
+        if(!is_string($db)){
+            $this->_exception('ERR_ILLEGAL_DATABASE_NAME');
+        }
+
+        $request = $this->getHttpRequest()
+            ->setMethod(Solar_Http_Request::METHOD_DELETE);
+        
+        $uri = $this->getUri();
+        $uri->setPath($db);
+        $result = $this->query($uri, $request);
+
+        if(isset($result['ok']) && $result['ok'] === true){
+            return true;
+        }
+
         return false;
     }
 
