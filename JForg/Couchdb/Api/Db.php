@@ -159,13 +159,11 @@ class JForg_Couchdb_Api_Db extends JForg_Couchdb_Api {
                case 'not_found':
                     throw $this->_exception('ERR_DATABASE_NOT_FOUND', $data);
                     break;
-
-               default:
-                   throw $this->_exception('ERR_'.strtoupper($data['error']), $data);
-                   break;
            }
 
        }
+       // If no error found, check the parrent method
+       parent::checkForErrors($data);
    }
 
 }
