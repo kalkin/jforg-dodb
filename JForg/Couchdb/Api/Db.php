@@ -122,6 +122,16 @@ class JForg_Couchdb_Api_Db extends JForg_Couchdb_Api {
      */
     public function compact($db)
     {
+        $uri = $this->getUri();
+        $uri->setPath($db.'/_compact');
+
+        $request = $this->getHttpRequest()
+            ->setMethod(Solar_Http_Request::METHOD_POST)
+            ->setContentType('application/json');
+        $result = $this->query($uri, $request);
+        if(isset($result['ok']) && $result['ok'] === true ){
+            return true;
+        }
         return false;
     }
 
