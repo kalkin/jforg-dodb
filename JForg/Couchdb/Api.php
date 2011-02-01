@@ -147,7 +147,19 @@ abstract class JForg_Couchdb_Api extends Solar_Base
      * @access public
      * @return void
      */
-   public abstract function checkForErrors($data);
+   public function checkForErrors($data){
+       if(isset($data['error'])){
+           switch ($data['error']) {
+               case 'bad_request':
+                    throw $this->_exception('ERR_BAD_REQUEST', $data);
+                    break;
+               default:
+                   throw $this->_exception('ERR_'.strtoupper($data['error']), $data);
+                   break;
+           }
+       }
+   
+   }
 
    /**
     * Logs to the logger if config field logging is true
