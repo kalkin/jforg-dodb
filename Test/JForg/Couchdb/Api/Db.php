@@ -113,6 +113,27 @@ class Test_JForg_Couchdb_Api_Db extends Solar_Test {
 
     /**
      * 
+     * Test -- Gets information about the specified database.
+     * 
+     */
+    public function testGetInfo()
+    {
+        $actual = $this->api->getInfo('example23');
+        $this->assertSame($actual['db_name'], 'example23');
+        
+
+        try{
+            $this->api->getInfo('as23');
+            $this->fail('Tried to get info of not existent db, an exception should be thrown'); 
+        }catch (JForg_Couchdb_Api_Db_Exception_DatabaseNotFound $e)
+        {
+            $this->assertInstance($e,
+                    'JForg_Couchdb_Api_Db_Exception_DatabaseNotFound');
+        }
+    }
+
+    /**
+     * 
      * Test -- Deletes the database, and all the documents and attachments contained within it.
      * 
      */
@@ -130,15 +151,6 @@ class Test_JForg_Couchdb_Api_Db extends Solar_Test {
         }
     }
 
-    /**
-     * 
-     * Test -- Gets information about the specified database.
-     * 
-     */
-    public function testGetInfo()
-    {
-        $this->todo('stub');
-    }
     
     /**
      * 
