@@ -135,7 +135,10 @@ class JForg_Couchdb_Api_Db extends JForg_Couchdb_Api {
      */
     public function getInfo($db)
     {
-        return null;
+        $uri = $this->getUri();
+        $uri->setPath($db);
+        $request = $this->getHttpRequest();
+        return $this->query($uri, $request);
     }
 
     /**
