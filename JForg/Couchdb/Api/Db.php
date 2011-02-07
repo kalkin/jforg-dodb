@@ -136,6 +136,22 @@ class JForg_Couchdb_Api_Db extends JForg_Couchdb_Api {
     }
 
     /**
+     * Compacts the view indexes associated with the specified design document.
+     * You can use this in place of the full database compaction if you know a
+     * specific set of view indexes have been affected by a recent database
+     * change. 
+     * 
+     * @param string $db Database Name
+     * @param string $designDoc Name of the design document
+     * @access public
+     * @return boolean
+     */
+    public function compactDesignDocs($db, $designDoc)
+    {
+        return false;
+    }
+
+    /**
      * Gets information about the database.
      * 
      * @param string $db Database Name
@@ -160,7 +176,8 @@ class JForg_Couchdb_Api_Db extends JForg_Couchdb_Api {
      * @access public
      * @return void
      */
-   public function checkForErrors($data){
+   public function checkForErrors($data)
+   {
        if(isset($data['error'])){
            switch ($data['error']) {
                case 'file_exists':
@@ -174,6 +191,21 @@ class JForg_Couchdb_Api_Db extends JForg_Couchdb_Api {
        }
        // If no error found, check the parrent method
        parent::checkForErrors($data);
+   }
+
+   /**
+    * Obtains a list of the changes made to a database. This can be used to
+    * monitor for update and modifications to the database for post processing
+    * orsynchronization.
+    * 
+    * @param string $db Database Name
+    * @param array $query Query arguments. For the full list see couchdb documentation
+    * @access public
+    * @return array
+    */
+   public function getChanges($db, $query)
+   {
+       // code...
    }
 
 }
