@@ -162,4 +162,33 @@ class Test_JForg_Couchdb_Api_Db extends Solar_Test {
         }
     }
 
+    /**
+     * 
+     * Test -- Compacts the view indexes associated with the specified design document.
+     * 
+     */
+    public function testCompactDesignDocs()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Obtains a list of the changes made to a database.
+     * 
+     */
+    public function testGetChanges()
+    {
+        $this->todo('stub');
+    }
+    
+    /**
+     * 
+     * Test -- Queries the couchdb database directly
+     * 
+     */
+    public function testQuery()
+    {
+        $this->todo('stub');
+    }
 }
