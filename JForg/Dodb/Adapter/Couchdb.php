@@ -170,14 +170,14 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
             $this->_cache->delete($doc->fetchDocumentId());
         }
         $data = $this->_save($this->_docToArray($doc));
-        if ( isset($data['ok']) )
-        {
-            $doc = $this->fetch($data['id']);
+        //if ( isset($data['ok']) )
+        //{
+            $doc = $this->fetch($data['_id']);
             if($this->_caching){
                 $this->_cache->add($doc->fetchDocumentId(), $doc);
             }
             return $doc;
-        }
+        //}
 	}
 
     /**
@@ -588,9 +588,10 @@ class JForg_Dodb_Adapter_Couchdb extends JForg_Dodb_Adapter
     {
         if ( isset($this->_config['http_request']) && $this->_config['http_request'] != null )
         {
-            $httpClient = Solar::factory('Solar_Http_Request', array('adapter' => 'Solar_Http_Request_Adapter_Stream'));
-        }
-        else
+            $httpClient = Solar::factory('Solar_Http_Request', array('adapter'
+                        => array('Solar_Http_Request_Adapter_Stream',
+                            array('timeout' => 5)))); 
+        } else
             $httpClient = Solar::factory('Solar_Http_Request');
 
         $httpClient->setContent('');
