@@ -204,4 +204,16 @@ class JForg_Dodb_Array extends Solar_Base implements Iterator, Countable, ArrayA
         unset($this->_data[$offset]);
     }
 
+    /**
+     * Returns the real php array
+     * 
+     * @access public
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->_data;
+    }
+    
+
 }
